@@ -1,0 +1,45 @@
+Script started on 2025-10-13 23:38:04+03:00 [TERM="xterm-256color" TTY="/dev/pts/1" COLUMNS="87" LINES="41"]
+[?2004h]0;mrgrey@codeby: ~/codeby-devops/lesson4[01;32mmrgrey@codeby[00m:[01;34m~/codeby-devops/lesson4[00m$ [7msudo systemctl status nginx[27msudo systemctl status nginx
+[?2004l[sudo] password for mrgrey: 
+[?1h=[0;1;32m●[0m nginx.service - The NGINX HTTP and reverse proxy server[m
+     Loaded: loaded (]8;;file://codeby/etc/systemd/system/nginx.service\/etc/systemd/system/nginx.service]8;;\; [0;1;32menabled[0m; preset: [0;1;32menabled[0m)[m]8;;\
+     Active: [0;1;32mactive (running)[0m since Mon 2025-10-13 23:37:44 MSK; 30s ago[m
+ Invocation: d27f3dd456234b60afe997054176d58d[m
+    Process: 10394 ExecStartPre=/usr/sbin/nginx -t (code=exited, status=0/SUCCESS)[m
+    Process: 10395 ExecStart=/usr/sbin/nginx (code=exited, status=0/SUCCESS)[m
+   Main PID: 10397 (nginx)[m
+      Tasks: 3[0;38;5;245m (limit: 3922)[0m[m
+     Memory: 3M (peak: 3.3M)[m
+        CPU: 76ms[m
+     CGroup: /system.slice/nginx.service[m
+             ├─[0;38;5;245m10397 "nginx: master process /usr/sbin/nginx"[0m[m
+             ├─[0;38;5;245m10398 "nginx: worker process"[0m[m
+             └─[0;38;5;245m10399 "nginx: worker process"[0m[m
+[m
+Oct 13 23:37:44 codeby systemd[1]: Starting nginx.service - The NGINX HTTP and reverse[m[7m>[27m
+Oct 13 23:37:44 codeby nginx[10394]: nginx: the configuration file /etc/nginx/nginx.co[m[7m>[27m
+Oct 13 23:37:44 codeby nginx[10394]: nginx: configuration file /etc/nginx/nginx.conf t[m[7m>[27m
+Oct 13 23:37:44 codeby systemd[1]: Started nginx.service - The NGINX HTTP and reverse [m[7m>[27m
+[7mlines 1-19/19 (END)[27m[K[K[?1l>[?2004h]0;mrgrey@codeby: ~/codeby-devops/lesson4[01;32mmrgrey@codeby[00m:[01;34m~/codeby-devops/lesson4[00m$ [7msudo cat /etc/systemd/system/nginx.service[27m[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Csudo cat /etc/systemd/system/nginx.service
+[?2004l[Unit]
+Description=The NGINX HTTP and reverse proxy server
+After=network.target
+
+[Service]
+Type=forking
+PIDFile=/run/nginx.pid
+ExecStartPre=/usr/sbin/nginx -t
+ExecStart=/usr/sbin/nginx
+ExecReload=/bin/kill -s HUP $MAINPID
+ExecStop=/bin/kill -s QUIT $MAINPID
+PrivateTmp=true
+# Добавь автоматический перезапуск при сбоях:cite[8]
+Restart=on-failure
+RestartSec=5s
+
+[Install]
+WantedBy=multi-user.target
+[?2004h]0;mrgrey@codeby: ~/codeby-devops/lesson4[01;32mmrgrey@codeby[00m:[01;34m~/codeby-devops/lesson4[00m$ [7mexit[27mexit
+[?2004lexit
+
+Script done on 2025-10-13 23:38:43+03:00 [COMMAND_EXIT_CODE="0"]
