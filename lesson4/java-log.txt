@@ -1,0 +1,25 @@
+Script started on 2025-10-13 23:30:12+03:00 [TERM="xterm-256color" TTY="/dev/pts/1" COLUMNS="87" LINES="41"]
+[?2004h]0;mrgrey@codeby: ~/codeby-devops/lesson4[01;32mmrgrey@codeby[00m:[01;34m~/codeby-devops/lesson4[00m$ [7mjava -version[27mjava -version
+[?2004lopenjdk version "17.0.2" 2022-01-18
+OpenJDK Runtime Environment (build 17.0.2+8-86)
+OpenJDK 64-Bit Server VM (build 17.0.2+8-86, mixed mode, sharing)
+[?2004h]0;mrgrey@codeby: ~/codeby-devops/lesson4[01;32mmrgrey@codeby[00m:[01;34m~/codeby-devops/lesson4[00m$ [7msudo update-alternatives --config java[27msudo update-alternatives --config java
+[?2004l[sudo] password for mrgrey: 
+There are 2 choices for the alternative java (providing /usr/bin/java).
+
+  Selection    Path                                         Priority   Status
+------------------------------------------------------------
+  0            /opt/jdk-17.0.2/bin/java                      2         auto mode
+* 1            /opt/jdk-17.0.2/bin/java                      2         manual mode
+  2            /usr/lib/jvm/java-11-openjdk-amd64/bin/java   1         manual mode
+
+Press <enter> to keep the current choice[*], or type selection number: 2
+update-alternatives: using /usr/lib/jvm/java-11-openjdk-amd64/bin/java to provide /usr/bin/java (java) in manual mode
+[?2004h]0;mrgrey@codeby: ~/codeby-devops/lesson4[01;32mmrgrey@codeby[00m:[01;34m~/codeby-devops/lesson4[00m$ [7mjava -version[27mjava -version
+[?2004lopenjdk version "11.0.28" 2025-07-15
+OpenJDK Runtime Environment (build 11.0.28+6-post-Ubuntu-1ubuntu125.04.1)
+OpenJDK 64-Bit Server VM (build 11.0.28+6-post-Ubuntu-1ubuntu125.04.1, mixed mode, sharing)
+[?2004h]0;mrgrey@codeby: ~/codeby-devops/lesson4[01;32mmrgrey@codeby[00m:[01;34m~/codeby-devops/lesson4[00m$ [7mexit[27mexit
+[?2004lexit
+
+Script done on 2025-10-13 23:30:53+03:00 [COMMAND_EXIT_CODE="0"]
