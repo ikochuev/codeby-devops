@@ -1,0 +1,21 @@
+#sudo iptables -t nat -L
+Chain PREROUTING (policy ACCEPT)
+target     prot opt source               destination         
+
+Chain INPUT (policy ACCEPT)
+target     prot opt source               destination         
+
+Chain OUTPUT (policy ACCEPT)
+target     prot opt source               destination         
+
+Chain POSTROUTING (policy ACCEPT)
+target     prot opt source               destination         
+MASQUERADE  all  --  10.8.0.0/24          anywhere            
+MASQUERADE  all  --  10.8.0.0/24          anywhere            
+MASQUERADE  all  --  10.8.0.0/24          anywhere            
+
+
+
+#sudo iptables -L FORWARD
+Chain FORWARD (policy ACCEPT)
+target     prot opt source               destination 
