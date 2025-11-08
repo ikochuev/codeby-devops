@@ -1,0 +1,12 @@
+#iptables -L
+[sudo] password for hostman: 
+Chain INPUT (policy ACCEPT)
+target     prot opt source               destination         
+
+Chain FORWARD (policy ACCEPT)
+target     prot opt source               destination         
+
+Chain OUTPUT (policy ACCEPT)
+target     prot opt source               destination         
+DROP       tcp  --  anywhere             anywhere             tcp dpt:domain
+DROP       udp  --  anywhere             anywhere             udp dpt:domain
