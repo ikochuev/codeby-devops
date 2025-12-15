@@ -1,0 +1,9 @@
+[dev]
+192.168.56.10
+
+[dev:vars]
+ansible_user=vagrant
+ansible_ssh_private_key_file=/home/user/codeby-devops/lesson12/.vagrant/machines/dev/virtualbox/private_key
+ansible_python_interpreter=/usr/bin/python3
+
+deploy_environment=development
