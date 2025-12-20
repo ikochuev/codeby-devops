@@ -1,0 +1,50 @@
+---
+# Playbook: Установка пакетов и настройка Nginx
+# Описание: Устанавливает wget, htop, nginx и выводит информацию об окружении
+# Автор: [ikochuev]
+# Дата: $(date)
+
+- name: Базовая настройка серверов
+  hosts: all  # Применяется ко всем хостам из inventory
+  become: yes  # Выполнять с правами sudo
+
+  tasks:
+    # 1. Обновление apt кэша
+    - name: Обновление списка пакетов apt
+      apt:
+        update_cache: yes
+        cache_valid_time: 3600  # Кэшировать на 1 час
+
+    # 2. Установка требуемых пакетов
+    - name: Установка пакетов wget, htop, nginx
+      apt:
+        name:
+          - wget
+          - htop  
+          - nginx
+        state: present  # Убедиться что пакеты установлены
+        install_recommends: no
+
+    # 3. Запуск и включение службы Nginx
+    - name: Управление службой Nginx
+      systemd:
+        name: nginx
+        state: started   # Запустить службу
+        enabled: yes     # Включить автозапуск при загрузке
+        daemon_reload: yes
+
+    # 4. ОПРЕДЕЛЕНИЕ ОКРУЖЕНИЯ
+    # Вариант A: По IP адресу
+    - name: Определение окружения по IP
+      set_fact:
+        current_environment: "{{ 'development' if inventory_hostname == '192.168.56.10' else 'production' }}"
+    
+    # Вариант B: По переменной из inventory
+    # - name: Определение окружения из переменной
+    #   set_fact:
+    #     current_environment: "{{ deploy_environment | default('unknown') }}"
+
+    # 5. Вывод информации об окружении
+    - name: Отображение информации об окружении
+      debug:
+        msg: "This host is in {{ current_environment }} environment"

@@ -1,0 +1,165 @@
+==========================================
+      ПОЛНАЯ ПРОВЕРКА LESSON 12
+==========================================
+
+1. ПРОВЕРКА ВИРТУАЛЬНЫХ МАШИН
+------------------------------------------
+Current machine states:
+
+dev                       running (virtualbox)
+prod                      running (virtualbox)
+
+This environment represents multiple VMs. The VMs are all listed
+above with their current state. For more information about a specific
+VM, run `vagrant status NAME`.
+
+2. ПРОВЕРКА SSH КЛЮЧЕЙ VAGRANT
+------------------------------------------
+Dev VM SSH key:
+  IdentityFile /home/user/lesson12/.vagrant/machines/dev/virtualbox/private_key
+  IdentitiesOnly yes
+
+Prod VM SSH key:
+  IdentityFile /home/user/lesson12/.vagrant/machines/prod/virtualbox/private_key
+  IdentitiesOnly yes
+
+3. ПРОВЕРКА PYTHON НА ВМ
+------------------------------------------
+Dev Python version:
+Python 3.10.12
+
+Prod Python version:
+Python 3.10.12
+
+4. ПРОВЕРКА ANSIBLE INVENTORY
+------------------------------------------
+Dev inventory:
+all:
+  children:
+    dev:
+      hosts:
+        192.168.56.10:
+          ansible_python_interpreter: /usr/bin/python3
+          ansible_ssh_private_key_file: /home/user/lesson12/.vagrant/machines/dev/virtualbox/private_key
+          ansible_user: vagrant
+          deploy_environment: development
+          environment: development
+
+Prod inventory:
+all:
+  children:
+    prod:
+      hosts:
+        192.168.56.20:
+          ansible_python_interpreter: /usr/bin/python3
+          ansible_ssh_private_key_file: /home/user/lesson12/.vagrant/machines/prod/virtualbox/private_key
+          ansible_user: vagrant
+          deploy_environment: production
+          environment: production
+
+5. ПРОВЕРКА ПОДКЛЮЧЕНИЯ ANSIBLE
+------------------------------------------
+Ping to dev:
+192.168.56.10 | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+
+Ping to prod:
+192.168.56.20 | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+
+6. ЗАПУСК PLAYBOOK
+------------------------------------------
+=== Dev environment ===
+
+PLAY [Базовая настройка серверов] **********************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [192.168.56.10]
+
+TASK [Обновление списка пакетов apt] *******************************************
+ok: [192.168.56.10]
+
+TASK [Установка пакетов wget, htop, nginx] *************************************
+ok: [192.168.56.10]
+
+TASK [Управление службой Nginx] ************************************************
+ok: [192.168.56.10]
+
+TASK [Определение окружения по IP] *********************************************
+ok: [192.168.56.10]
+
+TASK [Отображение информации об окружении] *************************************
+ok: [192.168.56.10] => {
+    "msg": "This host is in development environment"
+}
+
+PLAY RECAP *********************************************************************
+192.168.56.10              : ok=6    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
+
+=== Prod environment ===
+
+PLAY [Базовая настройка серверов] **********************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [192.168.56.20]
+
+TASK [Обновление списка пакетов apt] *******************************************
+ok: [192.168.56.20]
+
+TASK [Установка пакетов wget, htop, nginx] *************************************
+ok: [192.168.56.20]
+
+TASK [Управление службой Nginx] ************************************************
+ok: [192.168.56.20]
+
+TASK [Определение окружения по IP] *********************************************
+ok: [192.168.56.20]
+
+TASK [Отображение информации об окружении] *************************************
+ok: [192.168.56.20] => {
+    "msg": "This host is in production environment"
+}
+
+PLAY RECAP *********************************************************************
+192.168.56.20              : ok=6    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
+
+7. ФИНАЛЬНАЯ ПРОВЕРКА УСТАНОВКИ
+------------------------------------------
+Checking installed packages on dev:
+192.168.56.10 | CHANGED | rc=0 >>
+ii  htop                             3.0.5-7build2                           amd64        interactive processes viewer
+ii  libnginx-mod-http-geoip2         1.18.0-6ubuntu14.7                      amd64        GeoIP2 HTTP module for Nginx
+ii  libnginx-mod-http-image-filter   1.18.0-6ubuntu14.7                      amd64        HTTP image filter module for Nginx
+ii  libnginx-mod-http-xslt-filter    1.18.0-6ubuntu14.7                      amd64        XSLT Transformation module for Nginx
+ii  libnginx-mod-mail                1.18.0-6ubuntu14.7                      amd64        Mail module for Nginx
+ii  libnginx-mod-stream              1.18.0-6ubuntu14.7                      amd64        Stream module for Nginx
+ii  libnginx-mod-stream-geoip2       1.18.0-6ubuntu14.7                      amd64        GeoIP2 Stream module for Nginx
+ii  nginx                            1.18.0-6ubuntu14.7                      amd64        small, powerful, scalable web/proxy server
+ii  nginx-common                     1.18.0-6ubuntu14.7                      all          small, powerful, scalable web/proxy server - common files
+ii  nginx-core                       1.18.0-6ubuntu14.7                      amd64        nginx web/proxy server (standard version)
+ii  wget                             1.21.2-2ubuntu1.1                       amd64        retrieves files from the web
+
+Checking Nginx status on prod:
+192.168.56.20 | CHANGED | rc=0 >>
+● nginx.service - A high performance web server and a reverse proxy server
+     Loaded: loaded (/lib/systemd/system/nginx.service; enabled; vendor preset: enabled)
+     Active: active (running) since Mon 2025-12-15 20:37:30 UTC; 27min ago
+       Docs: man:nginx(8)
+   Main PID: 3246 (nginx)
+
+8. ПРОВЕРКА ВЕБ-СЕРВЕРА
+------------------------------------------
+Dev (http://192.168.56.10):
+HTTP/1.1 200 OK
+Prod (http://192.168.56.20):
+HTTP/1.1 200 OK
+
+==========================================
+        ПРОВЕРКА ЗАВЕРШЕНА ✓
+==========================================
