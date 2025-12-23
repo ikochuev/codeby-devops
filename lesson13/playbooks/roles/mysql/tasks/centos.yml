@@ -1,0 +1,11 @@
+---
+# CentOS-specific MySQL/MariaDB tasks
+- name: Install MariaDB server on CentOS
+  dnf:
+    name:
+      - mariadb-server
+      - mariadb
+      - python3-PyMySQL
+    state: present
+  become: yes
+  notify: restart mysql

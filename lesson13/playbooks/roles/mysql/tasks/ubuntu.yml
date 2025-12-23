@@ -1,0 +1,17 @@
+---
+# Ubuntu-specific MySQL tasks
+- name: Update apt cache
+  apt:
+    update_cache: yes
+    cache_valid_time: 3600
+  become: yes
+
+- name: Install MySQL server on Ubuntu
+  apt:
+    name:
+      - mysql-server
+      - mysql-client
+      - python3-mysqldb
+    state: present
+  become: yes
+  notify: restart mysql

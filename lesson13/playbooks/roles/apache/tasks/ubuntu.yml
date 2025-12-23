@@ -1,0 +1,22 @@
+---
+# Ubuntu-specific Apache tasks
+- name: Update apt cache
+  apt:
+    update_cache: yes
+    cache_valid_time: 3600
+  become: yes
+
+- name: Install Apache on Ubuntu
+  apt:
+    name:
+      - apache2
+    state: present
+  become: yes
+  notify: restart apache
+
+- name: Enable Apache modules
+  apache2_module:
+    name: rewrite
+    state: present
+  become: yes
+  notify: restart apache

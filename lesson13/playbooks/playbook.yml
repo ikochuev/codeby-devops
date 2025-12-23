@@ -1,0 +1,16 @@
+---
+- name: Setup MySQL on all hosts
+  hosts: all
+  become: yes
+  gather_facts: yes
+  
+  roles:
+    - role: mysql
+
+- name: Setup Apache on all hosts
+  hosts: all
+  become: yes
+  gather_facts: yes
+  
+  roles:
+    - role: apache

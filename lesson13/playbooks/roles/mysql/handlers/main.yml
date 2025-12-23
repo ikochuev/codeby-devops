@@ -1,0 +1,7 @@
+---
+# MySQL handlers
+- name: restart mysql
+  systemd:
+    name: "{{ 'mysql' if ansible_os_family == 'Debian' else 'mariadb' }}"
+    state: restarted
+  become: yes

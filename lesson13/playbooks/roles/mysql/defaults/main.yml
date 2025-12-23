@@ -1,0 +1,5 @@
+---
+# MySQL defaults
+mysql_root_password: ""
+mysql_remove_test_database: true
+mysql_remove_anonymous_users: true
