@@ -1,0 +1,9 @@
+---
+# MySQL main tasks - cross-platform
+- name: Include Ubuntu MySQL tasks
+  import_tasks: ubuntu.yml
+  when: ansible_os_family == "Debian"
+
+- name: Include CentOS MySQL tasks  
+  import_tasks: centos.yml
+  when: ansible_os_family == "RedHat"

@@ -1,0 +1,9 @@
+---
+# Apache main tasks - cross-platform
+- name: Include Ubuntu Apache tasks
+  import_tasks: ubuntu.yml
+  when: ansible_os_family == "Debian"
+
+- name: Include CentOS Apache tasks
+  import_tasks: centos.yml
+  when: ansible_os_family == "RedHat"

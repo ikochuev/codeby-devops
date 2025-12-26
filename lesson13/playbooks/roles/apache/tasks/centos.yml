@@ -1,0 +1,16 @@
+---
+# CentOS-specific Apache tasks
+- name: Install Apache on CentOS
+  dnf:
+    name:
+      - httpd
+    state: present
+  become: yes
+  notify: restart apache
+
+- name: Configure SELinux for Apache
+  seboolean:
+    name: httpd_can_network_connect_db
+    state: yes
+    persistent: yes
+  become: yes
