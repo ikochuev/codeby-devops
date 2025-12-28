@@ -1,0 +1,30 @@
+# Создание сети
+sudo docker network create wp-net
+
+# Создание волюмов
+sudo docker volume create wp-db
+sudo docker volume create wp-data
+
+# Создание папки для конфигурации Apache
+mkdir -p ./wp-apache-conf
+
+# Запуск контейнера MySQL
+sudo docker run -d --name wp-db --network wp-net --mount source=wp-db,target=/var/lib/mysql -e MYSQL_ROOT_PASSWORD=strong_root_password -e MYSQL_DATABASE=wordpress -e MYSQL_USER=wordpress -e MYSQL_PASSWORD=wordpress_password mysql:8.0
+
+# Подготовка конфигурации Apache
+nano wp-apache-conf/wordpress.conf
+<VirtualHost *:80>
+    ServerAdmin webmaster@localhost
+    DocumentRoot /var/www/html
+
+    <Directory /var/www/html>
+        AllowOverride All
+        Require all granted
+    </Directory>
+
+    ErrorLog ${APACHE_LOG_DIR}/error.log
+    CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>
+
+# Запуск контейнера WordPress
+sudo docker run -d --name wp-app --network wp-net -p 8080:80 --mount source=wp-data,target=/var/www/html --mount type=bind,source=$(pwd)/wp-apache-conf,target=/etc/apache2/sites-available -e WORDPRESS_DB_HOST=wp-db -e WORDPRESS_DB_USER=wordpress -e WORDPRESS_DB_PASSWORD=wordpress_password -e WORDPRESS_DB_NAME=wordpress wordpress:latest

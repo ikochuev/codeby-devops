@@ -1,0 +1,336 @@
+Script started on 2025-12-28 23:45:34+03:00 [TERM="xterm-256color" TTY="/dev/pts/0" COLUMNS="163" LINES="41"]
+[?2004h]0;user@user-VMware-Virtual-Platform: ~/lesson_x[01;32muser@user-VMware-Virtual-Platform[00m:[01;34m~/lesson_x[00m$ [7msudo docker ps[27msudo docker ps
+[?2004l[sudo] password for user: 
+CONTAINER ID   IMAGE              COMMAND                  CREATED          STATUS          PORTS                                     NAMES
+6b0758e908f0   wordpress:latest   "docker-entrypoint.s…"   9 minutes ago    Up 9 minutes    0.0.0.0:8080->80/tcp, [::]:8080->80/tcp   wp-app
+1d27a86a5224   mysql:8.0          "docker-entrypoint.s…"   10 minutes ago   Up 10 minutes   3306/tcp, 33060/tcp                       wp-db
+[?2004h]0;user@user-VMware-Virtual-Platform: ~/lesson_x[01;32muser@user-VMware-Virtual-Platform[00m:[01;34m~/lesson_x[00m$ [7msudo docker logs wp-app[27msudo docker logs wp-app
+[?2004lWordPress not found in /var/www/html - copying now...
+Complete! WordPress has been successfully copied to /var/www/html
+No 'wp-config.php' found in /var/www/html, but 'WORDPRESS_...' variables supplied; copying 'wp-config-docker.php' (WORDPRESS_DB_HOST WORDPRESS_DB_NAME WORDPRESS_DB_PASSWORD WORDPRESS_DB_USER)
+AH00558: apache2: Could not reliably determine the server's fully qualified domain name, using 172.18.0.3. Set the 'ServerName' directive globally to suppress this message
+AH00558: apache2: Could not reliably determine the server's fully qualified domain name, using 172.18.0.3. Set the 'ServerName' directive globally to suppress this message
+[Sun Dec 28 20:36:14.388788 2025] [mpm_prefork:notice] [pid 1:tid 1] AH00163: Apache/2.4.65 (Debian) PHP/8.3.29 configured -- resuming normal operations
+[Sun Dec 28 20:36:14.388885 2025] [core:notice] [pid 1:tid 1] AH00094: Command line: 'apache2 -D FOREGROUND'
+[?2004h]0;user@user-VMware-Virtual-Platform: ~/lesson_x[01;32muser@user-VMware-Virtual-Platform[00m:[01;34m~/lesson_x[00m$ [7msudo docker logs wp-app[27msudo docker logs wp-app
+[?2004lWordPress not found in /var/www/html - copying now...
+Complete! WordPress has been successfully copied to /var/www/html
+No 'wp-config.php' found in /var/www/html, but 'WORDPRESS_...' variables supplied; copying 'wp-config-docker.php' (WORDPRESS_DB_HOST WORDPRESS_DB_NAME WORDPRESS_DB_PASSWORD WORDPRESS_DB_USER)
+AH00558: apache2: Could not reliably determine the server's fully qualified domain name, using 172.18.0.3. Set the 'ServerName' directive globally to suppress this message
+AH00558: apache2: Could not reliably determine the server's fully qualified domain name, using 172.18.0.3. Set the 'ServerName' directive globally to suppress this message
+[Sun Dec 28 20:36:14.388788 2025] [mpm_prefork:notice] [pid 1:tid 1] AH00163: Apache/2.4.65 (Debian) PHP/8.3.29 configured -- resuming normal operations
+[Sun Dec 28 20:36:14.388885 2025] [core:notice] [pid 1:tid 1] AH00094: Command line: 'apache2 -D FOREGROUND'
+[?2004h]0;user@user-VMware-Virtual-Platform: ~/lesson_x[01;32muser@user-VMware-Virtual-Platform[00m:[01;34m~/lesson_x[00m$ curl [7mhttp://localhost:8080[27mhttp://localhost:8080
+[?2004l[?2004h]0;user@user-VMware-Virtual-Platform: ~/lesson_x[01;32muser@user-VMware-Virtual-Platform[00m:[01;34m~/lesson_x[00m$ ci[Kurl [7mhttp://localhost:8080/wp-admin/install.php[27mhttp://localhost:8080/wp-admin/install.php
+[?2004l<!DOCTYPE html>
+<html lang="en-US" xml:lang="en-US">
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="robots" content="noindex,nofollow" />
+	<title>WordPress &rsaquo; Installation</title>
+	<link rel='stylesheet' id='dashicons-css' href='http://localhost:8080/wp-includes/css/dashicons.min.css?ver=6.9' type='text/css' media='all' />
+<link rel='stylesheet' id='buttons-css' href='http://localhost:8080/wp-includes/css/buttons.min.css?ver=6.9' type='text/css' media='all' />
+<link rel='stylesheet' id='forms-css' href='http://localhost:8080/wp-admin/css/forms.min.css?ver=6.9' type='text/css' media='all' />
+<link rel='stylesheet' id='l10n-css' href='http://localhost:8080/wp-admin/css/l10n.min.css?ver=6.9' type='text/css' media='all' />
+<link rel='stylesheet' id='install-css' href='http://localhost:8080/wp-admin/css/install.min.css?ver=6.9' type='text/css' media='all' />
+</head>
+<body class="wp-core-ui language-chooser">
+<p id="logo">WordPress</p>
+
+	<form id="setup" method="post" action="?step=1"><label class='screen-reader-text' for='language'>Select a default language</label>
+<select size='14' name='language' id='language'>
+<option value="" lang="en" selected="selected" data-continue="Continue" data-installed="1">English (United States)</option>
+<option value="af" lang="af" data-continue="Gaan voort">Afrikaans</option>
+<option value="am" lang="am" data-continue="ቀጥል">አማርኛ</option>
+<option value="arg" lang="an" data-continue="Continar">Aragonés</option>
+<option value="ar" lang="ar" data-continue="متابعة">العربية</option>
+<option value="ary" lang="ar" data-continue="المتابعة">العربية المغربية</option>
+<option value="as" lang="as" data-continue="Continue">অসমীয়া</option>
+<option value="azb" lang="az" data-continue="Continue">گؤنئی آذربایجان</option>
+<option value="az" lang="az" data-continue="Davam">Azərbaycan dili</option>
+<option value="bel" lang="be" data-continue="Працягнуць">Беларуская мова</option>
+<option value="bg_BG" lang="bg" data-continue="Напред">Български</option>
+<option value="bn_BD" lang="bn" data-continue="চালিয়ে যান">বাংলা</option>
+<option value="bo" lang="bo" data-continue="མུ་མཐུད་དུ།">བོད་ཡིག</option>
+<option value="bs_BA" lang="bs" data-continue="Nastavi">Bosanski</option>
+<option value="ca" lang="ca" data-continue="Continua">Català</option>
+<option value="ceb" lang="ceb" data-continue="Padayun">Cebuano</option>
+<option value="cs_CZ" lang="cs" data-continue="Pokračovat">Čeština</option>
+<option value="cy" lang="cy" data-continue="Parhau">Cymraeg</option>
+<option value="da_DK" lang="da" data-continue="Fortsæt">Dansk</option>
+<option value="de_AT" lang="de" data-continue="Weiter">Deutsch (Österreich)</option>
+<option value="de_DE" lang="de" data-continue="Weiter">Deutsch</option>
+<option value="de_DE_formal" lang="de" data-continue="Weiter">Deutsch (Sie)</option>
+<option value="de_CH" lang="de" data-continue="Weiter">Deutsch (Schweiz)</option>
+<option value="de_CH_informal" lang="de" data-continue="Weiter">Deutsch (Schweiz, Du)</option>
+<option value="dsb" lang="dsb" data-continue="Dalej">Dolnoserbšćina</option>
+<option value="dzo" lang="dz" data-continue="Continue">རྫོང་ཁ</option>
+<option value="el" lang="el" data-continue="Συνέχεια">Ελληνικά</option>
+<option value="en_CA" lang="en" data-continue="Continue">English (Canada)</option>
+<option value="en_NZ" lang="en" data-continue="Continue">English (New Zealand)</option>
+<option value="en_ZA" lang="en" data-continue="Continue">English (South Africa)</option>
+<option value="en_GB" lang="en" data-continue="Continue">English (UK)</option>
+<option value="en_AU" lang="en" data-continue="Continue">English (Australia)</option>
+<option value="eo" lang="eo" data-continue="Daŭrigi">Esperanto</option>
+<option value="es_MX" lang="es" data-continue="Continuar">Español de México</option>
+<option value="es_CO" lang="es" data-continue="Continuar">Español de Colombia</option>
+<option value="es_AR" lang="es" data-continue="Continuar">Español de Argentina</option>
+<option value="es_PE" lang="es" data-continue="Continuar">Español de Perú</option>
+<option value="es_CR" lang="es" data-continue="Continuar">Español de Costa Rica</option>
+<option value="es_VE" lang="es" data-continue="Continuar">Español de Venezuela</option>
+<option value="es_EC" lang="es" data-continue="Continuar">Español de Ecuador</option>
+<option value="es_DO" lang="es" data-continue="Continuar">Español de República Dominicana</option>
+<option value="es_UY" lang="es" data-continue="Continuar">Español de Uruguay</option>
+<option value="es_PR" lang="es" data-continue="Continuar">Español de Puerto Rico</option>
+<option value="es_GT" lang="es" data-continue="Continuar">Español de Guatemala</option>
+<option value="es_ES" lang="es" data-continue="Continuar">Español</option>
+<option value="es_CL" lang="es" data-continue="Continuar">Español de Chile</option>
+<option value="et" lang="et" data-continue="Jätka">Eesti</option>
+<option value="eu" lang="eu" data-continue="Jarraitu">Euskara</option>
+<option value="fa_IR" lang="fa" data-continue="ادامه">فارسی</option>
+<option value="fa_AF" lang="fa" data-continue="ادامه">(فارسی (افغانستان</option>
+<option value="fi" lang="fi" data-continue="Jatka">Suomi</option>
+<option value="fr_CA" lang="fr" data-continue="Continuer">Français du Canada</option>
+<option value="fr_BE" lang="fr" data-continue="Continuer">Français de Belgique</option>
+<option value="fr_FR" lang="fr" data-continue="Continuer">Français</option>
+<option value="fur" lang="fur" data-continue="Continue">Friulian</option>
+<option value="fy" lang="fy" data-continue="Trochgean">Frysk</option>
+<option value="gd" lang="gd" data-continue="Lean air adhart">Gàidhlig</option>
+<option value="gl_ES" lang="gl" data-continue="Continuar">Galego</option>
+<option value="gu" lang="gu" data-continue="ચાલુ રાખો">ગુજરાતી</option>
+<option value="haz" lang="haz" data-continue="ادامه">هزاره گی</option>
+<option value="he_IL" lang="he" data-continue="המשך">עִבְרִית</option>
+<option value="hi_IN" lang="hi" data-continue="जारी रखें">हिन्दी</option>
+<option value="hr" lang="hr" data-continue="Nastavi">Hrvatski</option>
+<option value="hsb" lang="hsb" data-continue="Dale">Hornjoserbšćina</option>
+<option value="hu_HU" lang="hu" data-continue="Folytatás">Magyar</option>
+<option value="hy" lang="hy" data-continue="Շարունակել">Հայերեն</option>
+<option value="id_ID" lang="id" data-continue="Lanjutkan">Bahasa Indonesia</option>
+<option value="is_IS" lang="is" data-continue="Áfram">Íslenska</option>
+<option value="it_IT" lang="it" data-continue="Continua">Italiano</option>
+<option value="ja" lang="ja" data-continue="次へ">日本語</option>
+<option value="jv_ID" lang="jv" data-continue="Nerusaké">Basa Jawa</option>
+<option value="ka_GE" lang="ka" data-continue="გაგრძელება">ქართული</option>
+<option value="kab" lang="kab" data-continue="Kemmel">Taqbaylit</option>
+<option value="kk" lang="kk" data-continue="Жалғастыру">Қазақ тілі</option>
+<option value="km" lang="km" data-continue="បន្ត">ភាសាខ្មែរ</option>
+<option value="kn" lang="kn" data-continue="ಮುಂದುವರಿಸು">ಕನ್ನಡ</option>
+<option value="ko_KR" lang="ko" data-continue="계속">한국어</option>
+<option value="ckb" lang="ku" data-continue="به‌رده‌وام به‌">كوردی‎</option>
+<option value="kir" lang="ky" data-continue="Улантуу">Кыргызча</option>
+<option value="lo" lang="lo" data-continue="ຕໍ່​ໄປ">ພາສາລາວ</option>
+<option value="lt_LT" lang="lt" data-continue="Tęsti">Lietuvių kalba</option>
+<option value="lv" lang="lv" data-continue="Turpināt">Latviešu valoda</option>
+<option value="mk_MK" lang="mk" data-continue="Продолжи">Македонски јазик</option>
+<option value="ml_IN" lang="ml" data-continue="തുടരുക">മലയാളം</option>
+<option value="mn" lang="mn" data-continue="Continue">Монгол</option>
+<option value="mr" lang="mr" data-continue="सुरु ठेवा">मराठी</option>
+<option value="ms_MY" lang="ms" data-continue="Teruskan">Bahasa Melayu</option>
+<option value="my_MM" lang="my" data-continue="ဆက်လက်လုပ်ဆောင်ပါ။">ဗမာစာ</option>
+<option value="nb_NO" lang="nb" data-continue="Fortsett">Norsk bokmål</option>
+<option value="ne_NP" lang="ne" data-continue="जारी राख्नुहोस्">नेपाली</option>
+<option value="nl_BE" lang="nl" data-continue="Doorgaan">Nederlands (België)</option>
+<option value="nl_NL_formal" lang="nl" data-continue="Doorgaan">Nederlands (Formeel)</option>
+<option value="nl_NL" lang="nl" data-continue="Doorgaan">Nederlands</option>
+<option value="nn_NO" lang="nn" data-continue="Hald fram">Norsk nynorsk</option>
+<option value="oci" lang="oc" data-continue="Contunhar">Occitan</option>
+<option value="pa_IN" lang="pa" data-continue="ਜਾਰੀ ਰੱਖੋ">ਪੰਜਾਬੀ</option>
+<option value="pl_PL" lang="pl" data-continue="Kontynuuj">Polski</option>
+<option value="ps" lang="ps" data-continue="دوام ورکړه">پښتو</option>
+<option value="pt_BR" lang="pt" data-continue="Continuar">Português do Brasil</option>
+<option value="pt_AO" lang="pt" data-continue="Continuar">Português de Angola</option>
+<option value="pt_PT" lang="pt" data-continue="Continuar">Português</option>
+<option value="pt_PT_ao90" lang="pt" data-continue="Continuar">Português (AO90)</option>
+<option value="rhg" lang="rhg" data-continue="Continue">Ruáinga</option>
+<option value="ro_RO" lang="ro" data-continue="Continuă">Română</option>
+<option value="ru_RU" lang="ru" data-continue="Продолжить">Русский</option>
+<option value="sah" lang="sah" data-continue="Салҕаа">Сахалыы</option>
+<option value="snd" lang="sd" data-continue="اڳتي هلو">سنڌي</option>
+<option value="si_LK" lang="si" data-continue="දිගටම කරගෙන යන්න">සිංහල</option>
+<option value="sk_SK" lang="sk" data-continue="Pokračovať">Slovenčina</option>
+<option value="skr" lang="skr" data-continue="جاری رکھو">سرائیکی</option>
+<option value="sl_SI" lang="sl" data-continue="Nadaljuj">Slovenščina</option>
+<option value="sq" lang="sq" data-continue="Vazhdo">Shqip</option>
+<option value="sr_RS" lang="sr" data-continue="Настави">Српски језик</option>
+<option value="sv_SE" lang="sv" data-continue="Fortsätt">Svenska</option>
+<option value="sw" lang="sw" data-continue="Endelea">Kiswahili</option>
+<option value="szl" lang="szl" data-continue="Kōntynuować">Ślōnskŏ gŏdka</option>
+<option value="ta_IN" lang="ta" data-continue="தொடரவும்">தமிழ்</option>
+<option value="ta_LK" lang="ta" data-continue="தொடர்க">தமிழ்</option>
+<option value="te" lang="te" data-continue="కొనసాగించు">తెలుగు</option>
+<option value="th" lang="th" data-continue="ต่อไป">ไทย</option>
+<option value="tl" lang="tl" data-continue="Magpatuloy">Tagalog</option>
+<option value="tr_TR" lang="tr" data-continue="Devam">Türkçe</option>
+<option value="tt_RU" lang="tt" data-continue="дәвам итү">Татар теле</option>
+<option value="tah" lang="ty" data-continue="Continue">Reo Tahiti</option>
+<option value="ug_CN" lang="ug" data-continue="داۋاملاشتۇرۇش">ئۇيغۇرچە</option>
+<option value="uk" lang="uk" data-continue="Продовжити">Українська</option>
+<option value="ur" lang="ur" data-continue="جاری رکھیں">اردو</option>
+<option value="uz_UZ" lang="uz" data-continue="Davom etish">O‘zbekcha</option>
+<option value="vi" lang="vi" data-continue="Tiếp tục">Tiếng Việt</option>
+<option value="zh_TW" lang="zh" data-continue="繼續">繁體中文</option>
+<option value="zh_HK" lang="zh" data-continue="繼續">香港中文</option>
+<option value="zh_CN" lang="zh" data-continue="继续">简体中文</option>
+</select>
+<p class="step"><span class="spinner"></span><input id="language-continue" type="submit" class="button button-primary button-large" value="Continue" /></p></form><script type="text/javascript">var t = document.getElementById('weblog_title'); if (t){ t.focus(); }</script>
+	<script type="text/javascript" src="http://localhost:8080/wp-includes/js/jquery/jquery.min.js?ver=3.7.1" id="jquery-core-js"></script>
+<script type="text/javascript" src="http://localhost:8080/wp-includes/js/jquery/jquery-migrate.min.js?ver=3.4.1" id="jquery-migrate-js"></script>
+<script type="text/javascript" src="http://localhost:8080/wp-admin/js/language-chooser.min.js?ver=6.9" id="language-chooser-js"></script>
+<script type="text/javascript">
+jQuery( function( $ ) {
+	$( '.hide-if-no-js' ).removeClass( 'hide-if-no-js' );
+} );
+</script>
+</body>
+</html>
+[?2004h]0;user@user-VMware-Virtual-Platform: ~/lesson_x[01;32muser@user-VMware-Virtual-Platform[00m:[01;34m~/lesson_x[00m$ [7msudo docker network ls[27msudo docker network ls
+[?2004lNETWORK ID     NAME      DRIVER    SCOPE
+75e83a71fe44   bridge    bridge    local
+ad77d5fa111f   host      host      local
+4b005b204b01   none      null      local
+de432c82e4be   wp-net    bridge    local
+[?2004h]0;user@user-VMware-Virtual-Platform: ~/lesson_x[01;32muser@user-VMware-Virtual-Platform[00m:[01;34m~/lesson_x[00m$ [7msudo docker network inspect wp-net[27msudo docker network inspect wp-net
+[?2004l[
+    {
+        "Name": "wp-net",
+        "Id": "de432c82e4be3276582decf8c26f8c2f138decc37956b7f39a55846247878ba8",
+        "Created": "2025-12-28T23:32:58.589635563+03:00",
+        "Scope": "local",
+        "Driver": "bridge",
+        "EnableIPv4": true,
+        "EnableIPv6": false,
+        "IPAM": {
+            "Driver": "default",
+            "Options": {},
+            "Config": [
+                {
+                    "Subnet": "172.18.0.0/16",
+                    "IPRange": "",
+                    "Gateway": "172.18.0.1"
+                }
+            ]
+        },
+        "Internal": false,
+        "Attachable": false,
+        "Ingress": false,
+        "ConfigFrom": {
+            "Network": ""
+        },
+        "ConfigOnly": false,
+        "Options": {},
+        "Labels": {},
+        "Containers": {
+            "1d27a86a52242e671a5069a2a9b48d250e342cf0230316fcd4fb10af4935aaf6": {
+                "Name": "wp-db",
+                "EndpointID": "74134e3b0247e0ae19898fa2b49aeabddfdb7ea2de095119ac14293a50ec8261",
+                "MacAddress": "d6:41:2d:62:87:b6",
+                "IPv4Address": "172.18.0.2/16",
+                "IPv6Address": ""
+            },
+            "6b0758e908f069f9fbdaf5eec26cbcc82ad27a2b8a2279642ffa504cdfe3eec5": {
+                "Name": "wp-app",
+                "EndpointID": "dcb4f643025cd62515686bfeff2551b4a65e2ef110903e2a31ece1f256340148",
+                "MacAddress": "0a:62:77:27:a8:19",
+                "IPv4Address": "172.18.0.3/16",
+                "IPv6Address": ""
+            }
+        },
+        "Status": {
+            "IPAM": {
+                "Subnets": {
+                    "172.18.0.0/16": {
+                        "IPsInUse": 5,
+                        "DynamicIPsAvailable": 65531
+                    }
+                }
+            }
+        }
+    }
+]
+[?2004h]0;user@user-VMware-Virtual-Platform: ~/lesson_x[01;32muser@user-VMware-Virtual-Platform[00m:[01;34m~/lesson_x[00m$ [7msudo docker volume ls[27msudo docker volume ls
+[?2004lDRIVER    VOLUME NAME
+local     wp-data
+local     wp-db
+[?2004h]0;user@user-VMware-Virtual-Platform: ~/lesson_x[01;32muser@user-VMware-Virtual-Platform[00m:[01;34m~/lesson_x[00m$ [7msudo docker volume inspect wp-db wp-data[27msudo docker volume inspect wp-db wp-data
+[?2004l[
+    {
+        "CreatedAt": "2025-12-28T23:32:58+03:00",
+        "Driver": "local",
+        "Labels": null,
+        "Mountpoint": "/var/lib/docker/volumes/wp-db/_data",
+        "Name": "wp-db",
+        "Options": null,
+        "Scope": "local"
+    },
+    {
+        "CreatedAt": "2025-12-28T23:32:59+03:00",
+        "Driver": "local",
+        "Labels": null,
+        "Mountpoint": "/var/lib/docker/volumes/wp-data/_data",
+        "Name": "wp-data",
+        "Options": null,
+        "Scope": "local"
+    }
+]
+[?2004h]0;user@user-VMware-Virtual-Platform: ~/lesson_x[01;32muser@user-VMware-Virtual-Platform[00m:[01;34m~/lesson_x[00m$ [7msudo docker inspect wp-db --format='{{json .Mounts}}' | python3 -m json.tool || sudo docker inspect wp-db | grep -A 1[27m[7m0[27m[7m Mounts[27m[A]0;user@user-VMware-Virtual-Platform: ~/lesson_x[01;32muser@user-VMware-Virtual-Platform[00m:[01;34m~/lesson_x[00m$ sudo docker inspect wp-db --format='{{json .Mounts}}' | python3 -m json.tool || sudo docker inspect wp-db | grep -A 10 Mounts
+[?2004l[
+    {
+        "Type": "volume",
+        "Name": "wp-db",
+        "Source": "/var/lib/docker/volumes/wp-db/_data",
+        "Destination": "/var/lib/mysql",
+        "Driver": "local",
+        "Mode": "z",
+        "RW": true,
+        "Propagation": ""
+    }
+]
+[?2004h]0;user@user-VMware-Virtual-Platform: ~/lesson_x[01;32muser@user-VMware-Virtual-Platform[00m:[01;34m~/lesson_x[00m$ [7msudo docker inspect wp-app --format='{{json .Mounts}}' | python3 -m json.tool || sudo docker inspect wp-app | grep -A[27m[7m [27m[7m10 Mounts[27m[A]0;user@user-VMware-Virtual-Platform: ~/lesson_x[01;32muser@user-VMware-Virtual-Platform[00m:[01;34m~/lesson_x[00m$ sudo docker inspect wp-app --format='{{json .Mounts}}' | python3 -m json.tool || sudo docker inspect wp-app | grep -A 10 Mounts
+[?2004l[
+    {
+        "Type": "volume",
+        "Name": "wp-data",
+        "Source": "/var/lib/docker/volumes/wp-data/_data",
+        "Destination": "/var/www/html",
+        "Driver": "local",
+        "Mode": "z",
+        "RW": true,
+        "Propagation": ""
+    },
+    {
+        "Type": "bind",
+        "Source": "/home/user/lesson_x/wp-apache-conf",
+        "Destination": "/etc/apache2/sites-available",
+        "Mode": "",
+        "RW": true,
+        "Propagation": "rprivate"
+    }
+]
+[?2004h]0;user@user-VMware-Virtual-Platform: ~/lesson_x[01;32muser@user-VMware-Virtual-Platform[00m:[01;34m~/lesson_x[00m$ [7mls -la ./wp-apache-conf/[27mls -la ./wp-apache-conf/
+[?2004ltotal 12
+drwxrwxr-x 2 user user 4096 Dec 28 23:35 [0m[01;34m.[0m
+drwxrwxr-x 5 user user 4096 Dec 28 23:45 [01;34m..[0m
+-rw-rw-r-- 1 user user  297 Dec 28 23:35 wordpress.conf
+[?2004h]0;user@user-VMware-Virtual-Platform: ~/lesson_x[01;32muser@user-VMware-Virtual-Platform[00m:[01;34m~/lesson_x[00m$ [7mcat ./wp-apache-conf/wordpress.conf[27mcat ./wp-apache-conf/wordpress.conf
+[?2004l<VirtualHost *:80>
+    ServerAdmin webmaster@localhost
+    DocumentRoot /var/www/html
+
+    <Directory /var/www/html>
+        AllowOverride All
+        Require all granted
+    </Directory>
+
+    ErrorLog ${APACHE_LOG_DIR}/error.log
+    CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>
+[?2004h]0;user@user-VMware-Virtual-Platform: ~/lesson_x[01;32muser@user-VMware-Virtual-Platform[00m:[01;34m~/lesson_x[00m$ [7msudo docker exec wp-app ls -la /etc/apache2/sites-available/[27m[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Csudo docker exec wp-app ls -la /etc/apache2/sites-available/
+[?2004ltotal 12
+drwxrwxr-x 2 1000 1000 4096 Dec 28 20:35 .
+drwxr-xr-x 1 root root 4096 Dec 18 22:06 ..
+-rw-rw-r-- 1 1000 1000  297 Dec 28 20:35 wordpress.conf
+[?2004h]0;user@user-VMware-Virtual-Platform: ~/lesson_x[01;32muser@user-VMware-Virtual-Platform[00m:[01;34m~/lesson_x[00m$ exit
+[?2004lexit
+
+Script done on 2025-12-28 23:51:56+03:00 [COMMAND_EXIT_CODE="0"]
