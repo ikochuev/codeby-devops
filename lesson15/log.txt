@@ -1,0 +1,80 @@
+utputs:
+
+automatic_subnet_selection_demo = {
+  "vm_a" = {
+    "requested_zone" = "ru-central1-a"
+    "selected_subnet_id" = "e9bqq1i0ujrois7q865d"
+    "selected_subnet_name" = "lesson15-subnet-a"
+    "selected_subnet_zone" = "ru-central1-a"
+  }
+  "vm_b" = {
+    "requested_zone" = "ru-central1-b"
+    "selected_subnet_id" = "e2l9uskecleeljkcdvc8"
+    "selected_subnet_name" = "lesson15-subnet-b"
+    "selected_subnet_zone" = "ru-central1-b"
+  }
+}
+created_subnets = {
+  "ru-central1-a" = {
+    "cidr" = "192.168.10.0/24"
+    "id" = "e9bqq1i0ujrois7q865d"
+    "name" = "lesson15-subnet-a"
+  }
+  "ru-central1-b" = {
+    "cidr" = "192.168.20.0/24"
+    "id" = "e2l9uskecleeljkcdvc8"
+    "name" = "lesson15-subnet-b"
+  }
+}
+data_module_subnets = [
+  {
+    "cidr" = "192.168.10.0/24"
+    "id" = "e9bqq1i0ujrois7q865d"
+    "name" = "lesson15-subnet-a"
+    "zone" = "ru-central1-a"
+  },
+  {
+    "cidr" = "192.168.20.0/24"
+    "id" = "e2l9uskecleeljkcdvc8"
+    "name" = "lesson15-subnet-b"
+    "zone" = "ru-central1-b"
+  },
+]
+data_module_subnets_by_zone = {
+  "ru-central1-a" = [
+    {
+      "cidr" = "192.168.10.0/24"
+      "id" = "e9bqq1i0ujrois7q865d"
+      "name" = "lesson15-subnet-a"
+      "zone" = "ru-central1-a"
+    },
+  ]
+  "ru-central1-b" = [
+    {
+      "cidr" = "192.168.20.0/24"
+      "id" = "e2l9uskecleeljkcdvc8"
+      "name" = "lesson15-subnet-b"
+      "zone" = "ru-central1-b"
+    },
+  ]
+}
+network_id = "enpdg8vs1cbjd8v3fpn8"
+network_name = "lesson15-network"
+vm_a_info = {
+  "id" = "fhmprs9jtpu3rlsf10u1"
+  "name" = "lesson15-vm-a"
+  "private_ip" = "192.168.10.14"
+  "public_ip" = "89.169.153.198"
+  "subnet_id" = "e9bqq1i0ujrois7q865d"
+  "subnet_name" = "lesson15-subnet-a"
+  "zone" = "ru-central1-a"
+}
+vm_b_info = {
+  "id" = "epdchd2i5323158o6i9d"
+  "name" = "lesson15-vm-b"
+  "private_ip" = "192.168.20.5"
+  "public_ip" = "84.252.142.125"
+  "subnet_id" = "e2l9uskecleeljkcdvc8"
+  "subnet_name" = "lesson15-subnet-b"
+  "zone" = "ru-central1-b"
+}
