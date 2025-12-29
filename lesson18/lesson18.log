@@ -1,0 +1,205 @@
+Script started on 2025-12-29 02:22:49+03:00 [TERM="xterm-256color" TTY="/dev/pts/0" COLUMNS="163" LINES="43"]
+[?2004h]0;user@user-VMware-Virtual-Platform: ~/lesson18[01;32muser@user-VMware-Virtual-Platform[00m:[01;34m~/lesson18[00m$ [7msudo docker network ls[27msudo docker network ls
+[?2004l[sudo] password for user: 
+NETWORK ID     NAME                DRIVER    SCOPE
+75e83a71fe44   bridge              bridge    local
+ad77d5fa111f   host                host      local
+ba2259ac5e47   lesson18_backend    bridge    local
+26addf2b6145   lesson18_frontend   bridge    local
+4b005b204b01   none                null      local
+[?2004h]0;user@user-VMware-Virtual-Platform: ~/lesson18[01;32muser@user-VMware-Virtual-Platform[00m:[01;34m~/lesson18[00m$ [7msudo docker network inspect lesson18_backend lesson18_frontend[27m[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Csudo docker network inspect lesson18_backend lesson18_frontend
+[?2004l[
+    {
+        "Name": "lesson18_backend",
+        "Id": "ba2259ac5e47b8b99ae0475a860f2eed8395d52be5037d60854eae3051151bb8",
+        "Created": "2025-12-29T02:17:39.05034189+03:00",
+        "Scope": "local",
+        "Driver": "bridge",
+        "EnableIPv4": true,
+        "EnableIPv6": false,
+        "IPAM": {
+            "Driver": "default",
+            "Options": null,
+            "Config": [
+                {
+                    "Subnet": "172.19.0.0/16",
+                    "IPRange": "",
+                    "Gateway": "172.19.0.1"
+                }
+            ]
+        },
+        "Internal": true,
+        "Attachable": false,
+        "Ingress": false,
+        "ConfigFrom": {
+            "Network": ""
+        },
+        "ConfigOnly": false,
+        "Options": {},
+        "Labels": {
+            "com.docker.compose.config-hash": "a95612f1ec512bcdd6a5d3076e0424f0e0f09f32bff17ae1989212d889907eb9",
+            "com.docker.compose.network": "backend",
+            "com.docker.compose.project": "lesson18",
+            "com.docker.compose.version": "5.0.0"
+        },
+        "Containers": {
+            "f130d30efd4fc68d2016180139f807d84a2a5cf55834a1079219e0d5db2fc70f": {
+                "Name": "wp_app",
+                "EndpointID": "81afd4e56a55a6c49164a9029a84c7624d8bb69b08af67505d76f2b30d4909a1",
+                "MacAddress": "22:9f:45:e1:82:03",
+                "IPv4Address": "172.19.0.3/16",
+                "IPv6Address": ""
+            },
+            "f45bad17cd6b4e96d24bba9909ee5bc5ba223602430379691df7cf3d56a99b39": {
+                "Name": "wp_db",
+                "EndpointID": "b57261a15757da94e0fd62ef90dc8c03b6bf25a8b33740d40d00fc065695193d",
+                "MacAddress": "2e:c0:6a:05:9c:18",
+                "IPv4Address": "172.19.0.2/16",
+                "IPv6Address": ""
+            }
+        },
+        "Status": {
+            "IPAM": {
+                "Subnets": {
+                    "172.19.0.0/16": {
+                        "IPsInUse": 5,
+                        "DynamicIPsAvailable": 65531
+                    }
+                }
+            }
+        }
+    },
+    {
+        "Name": "lesson18_frontend",
+        "Id": "26addf2b61458ba5186f3532747069401194c61ce469915128e05d98b1d33586",
+        "Created": "2025-12-29T02:17:38.8420453+03:00",
+        "Scope": "local",
+        "Driver": "bridge",
+        "EnableIPv4": true,
+        "EnableIPv6": false,
+        "IPAM": {
+            "Driver": "default",
+            "Options": null,
+            "Config": [
+                {
+                    "Subnet": "172.18.0.0/16",
+                    "IPRange": "",
+                    "Gateway": "172.18.0.1"
+                }
+            ]
+        },
+        "Internal": false,
+        "Attachable": false,
+        "Ingress": false,
+        "ConfigFrom": {
+            "Network": ""
+        },
+        "ConfigOnly": false,
+        "Options": {},
+        "Labels": {
+            "com.docker.compose.config-hash": "7cf1a3730ad161826b166b9277d117e8b88819b40a19ce7936e0692561bda55d",
+            "com.docker.compose.network": "frontend",
+            "com.docker.compose.project": "lesson18",
+            "com.docker.compose.version": "5.0.0"
+        },
+        "Containers": {
+            "42c3eb956bb904633cd49cfa3f1685c83635d8cddfac84af8b113508024003c3": {
+                "Name": "wp_proxy",
+                "EndpointID": "b392c67eddf7594006b145f941525cb1bcc746cc02c851e9cb252547524f9fff",
+                "MacAddress": "52:2c:bc:9d:9c:96",
+                "IPv4Address": "172.18.0.3/16",
+                "IPv6Address": ""
+            },
+            "f130d30efd4fc68d2016180139f807d84a2a5cf55834a1079219e0d5db2fc70f": {
+                "Name": "wp_app",
+                "EndpointID": "38b22a1f10c05d7bbd1bf2b00d92804f3d412979dcf77dff934f4aee43f175e4",
+                "MacAddress": "a2:92:f9:84:f1:e6",
+                "IPv4Address": "172.18.0.2/16",
+                "IPv6Address": ""
+            }
+        },
+        "Status": {
+            "IPAM": {
+                "Subnets": {
+                    "172.18.0.0/16": {
+                        "IPsInUse": 5,
+                        "DynamicIPsAvailable": 65531
+                    }
+                }
+            }
+        }
+    }
+]
+[?2004h]0;user@user-VMware-Virtual-Platform: ~/lesson18[01;32muser@user-VMware-Virtual-Platform[00m:[01;34m~/lesson18[00m$ [7msudo docker inspect wp_db wp_app wp_proxy --format='{{json .Mounts}}' | python3 -m json.tool || sudo docker inspect w[27m[7mp[27m[7m_db | grep -A 10 Mounts[27m[A]0;user@user-VMware-Virtual-Platform: ~/lesson18[01;32muser@user-VMware-Virtual-Platform[00m:[01;34m~/lesson18[00m$ sudo docker inspect wp_db wp_app wp_proxy --format='{{json .Mounts}}' | python3 -m json.tool || sudo docker inspect wp_db | grep -A 10 Mounts
+[?2004lExtra data: line 2 column 1 (char 138)
+        "[01;31m[KMounts[m[K": [
+            {
+                "Type": "bind",
+                "Source": "/home/user/lesson18/mysql_data",
+                "Destination": "/var/lib/mysql",
+                "Mode": "rw",
+                "RW": true,
+                "Propagation": "rprivate"
+            }
+        ],
+        "Config": {
+[?2004h]0;user@user-VMware-Virtual-Platform: ~/lesson18[01;32muser@user-VMware-Virtual-Platform[00m:[01;34m~/lesson18[00m$ [7msudo docker exec wp_db env | grep MYSQL[27msudo docker exec wp_db env | grep MYSQL
+[?2004l[01;31m[KMYSQL[m[K_USER=wp_user
+[01;31m[KMYSQL[m[K_PASSWORD=secure_wp_pass_456
+[01;31m[KMYSQL[m[K_ROOT_PASSWORD=strong_root_pass_123
+[01;31m[KMYSQL[m[K_DATABASE=wordpress
+[01;31m[KMYSQL[m[K_MAJOR=8.0
+[01;31m[KMYSQL[m[K_VERSION=8.0.44-1.el9
+[01;31m[KMYSQL[m[K_SHELL_VERSION=8.0.44-1.el9
+[?2004h]0;user@user-VMware-Virtual-Platform: ~/lesson18[01;32muser@user-VMware-Virtual-Platform[00m:[01;34m~/lesson18[00m$ [7msudo docker exec wp_app env | grep WORDPRESS[27msudo docker exec wp_app env | grep WORDPRESS
+[?2004l[01;31m[KWORDPRESS[m[K_DB_PASSWORD=secure_wp_pass_456
+[01;31m[KWORDPRESS[m[K_DB_NAME=wordpress
+[01;31m[KWORDPRESS[m[K_DB_HOST=db:3306
+[01;31m[KWORDPRESS[m[K_DB_USER=wp_user
+[?2004h]0;user@user-VMware-Virtual-Platform: ~/lesson18[01;32muser@user-VMware-Virtual-Platform[00m:[01;34m~/lesson18[00m$ [7mcurl -I http://localhost[27mcurl -I http://localhost
+[?2004lHTTP/1.1 302 Found
+[1mServer[0m: nginx/1.29.4
+[1mDate[0m: Sun, 28 Dec 2025 23:23:44 GMT
+[1mContent-Type[0m: text/html; charset=UTF-8
+[1mConnection[0m: keep-alive
+[1mX-Powered-By[0m: PHP/8.3.29
+[1mExpires[0m: Wed, 11 Jan 1984 05:00:00 GMT
+[1mCache-Control[0m: no-cache, must-revalidate, max-age=0, no-store, private
+[1mX-Redirect-By[0m: WordPress
+[1mLocation[0m: ]8;;http://localhost/wp-admin/install.php\http://localhost/wp-admin/install.php
+]8;;\
+[?2004h]0;user@user-VMware-Virtual-Platform: ~/lesson18[01;32muser@user-VMware-Virtual-Platform[00m:[01;34m~/lesson18[00m$ [7msudo docker compose logs -f[27msudo docker compose logs -f
+[?2004l[33mWARN[0m[0000] /home/user/lesson18/docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion 
+[36mwp_app  | [0mAH00558: apache2: Could not reliably determine the server's fully qualified domain name, using 172.18.0.2. Set the 'ServerName' directive globally to suppress this message
+[36mwp_app  | [0mAH00558: apache2: Could not reliably determine the server's fully qualified domain name, using 172.18.0.2. Set the 'ServerName' directive globally to suppress this message
+[36mwp_app  | [0m[Sun Dec 28 23:18:13.044646 2025] [mpm_prefork:notice] [pid 1:tid 1] AH00163: Apache/2.4.65 (Debian) PHP/8.3.29 configured -- resuming normal operations
+[36mwp_app  | [0m[Sun Dec 28 23:18:13.045088 2025] [core:notice] [pid 1:tid 1] AH00094: Command line: 'apache2 -D FOREGROUND'
+[36mwp_app  | [0m172.18.0.1 - - [28/Dec/2025:23:23:43 +0000] "HEAD / HTTP/1.0" 302 363 "-" "curl/8.5.0"
+[33mwp_proxy  | [0m/docker-entrypoint.sh: /docker-entrypoint.d/ is not empty, will attempt to perform configuration
+[33mwp_proxy  | [0m/docker-entrypoint.sh: Looking for shell scripts in /docker-entrypoint.d/
+[33mwp_proxy  | [0m/docker-entrypoint.sh: Launching /docker-entrypoint.d/10-listen-on-ipv6-by-default.sh
+[33mwp_proxy  | [0m10-listen-on-ipv6-by-default.sh: info: Getting the checksum of /etc/nginx/conf.d/default.conf
+[33mwp_proxy  | [0m10-listen-on-ipv6-by-default.sh: info: Enabled listen on IPv6 in /etc/nginx/conf.d/default.conf
+[33mwp_proxy  | [0m/docker-entrypoint.sh: Sourcing /docker-entrypoint.d/15-local-resolvers.envsh
+[33mwp_proxy  | [0m/docker-entrypoint.sh: Launching /docker-entrypoint.d/20-envsubst-on-templates.sh
+[33mwp_proxy  | [0m/docker-entrypoint.sh: Launching /docker-entrypoint.d/30-tune-worker-processes.sh
+[33mwp_proxy  | [0m/docker-entrypoint.sh: Configuration complete; ready for start up
+[33mwp_proxy  | [0m172.18.0.1 - - [28/Dec/2025:23:23:44 +0000] "HEAD / HTTP/1.1" 302 0 "-" "curl/8.5.0"
+[32mwp_db     | [0m2025-12-28 23:17:40+00:00 [Note] [Entrypoint]: Entrypoint script for MySQL Server 8.0.44-1.el9 started.
+[32mwp_db     | [0m2025-12-28 23:17:41+00:00 [Note] [Entrypoint]: Switching to dedicated user 'mysql'
+[32mwp_db     | [0m2025-12-28 23:17:41+00:00 [Note] [Entrypoint]: Entrypoint script for MySQL Server 8.0.44-1.el9 started.
+[32mwp_db     | [0m'/var/lib/mysql/mysql.sock' -> '/var/run/mysqld/mysqld.sock'
+[32mwp_db     | [0m2025-12-28T23:17:42.601032Z 0 [Warning] [MY-011068] [Server] The syntax '--skip-host-cache' is deprecated and will be removed in a future release. Please use SET GLOBAL host_cache_size=0 instead.
+[32mwp_db     | [0m2025-12-28T23:17:42.606087Z 0 [System] [MY-010116] [Server] /usr/sbin/mysqld (mysqld 8.0.44) starting as process 1
+[32mwp_db     | [0m2025-12-28T23:17:42.624238Z 1 [System] [MY-013576] [InnoDB] InnoDB initialization has started.
+[32mwp_db     | [0m2025-12-28T23:17:43.255343Z 1 [System] [MY-013577] [InnoDB] InnoDB initialization has ended.
+[32mwp_db     | [0m2025-12-28T23:17:43.704552Z 0 [Warning] [MY-010068] [Server] CA certificate ca.pem is self signed.
+[32mwp_db     | [0m2025-12-28T23:17:43.704683Z 0 [System] [MY-013602] [Server] Channel mysql_main configured to support TLS. Encrypted connections are now supported for this channel.
+[32mwp_db     | [0m2025-12-28T23:17:43.713871Z 0 [Warning] [MY-011810] [Server] Insecure configuration for --pid-file: Location '/var/run/mysqld' in the path is accessible to all OS users. Consider choosing a different directory.
+[32mwp_db     | [0m2025-12-28T23:17:43.790250Z 0 [System] [MY-011323] [Server] X Plugin ready for connections. Bind-address: '::' port: 33060, socket: /var/run/mysqld/mysqlx.sock
+[32mwp_db     | [0m2025-12-28T23:17:43.791506Z 0 [System] [MY-010931] [Server] /usr/sbin/mysqld: ready for connections. Version: '8.0.44'  socket: '/var/run/mysqld/mysqld.sock'  port: 3306  MySQL Community Server - GPL.
+^C
+[?2004h]0;user@user-VMware-Virtual-Platform: ~/lesson18[01;32muser@user-VMware-Virtual-Platform[00m:[01;34m~/lesson18[00m$ exit
+[?2004lexit
+
+Script done on 2025-12-29 02:24:55+03:00 [COMMAND_EXIT_CODE="130"]
