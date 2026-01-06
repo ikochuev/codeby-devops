@@ -1,0 +1,72 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: diagnostics
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: pod-scanner
+  namespace: diagnostics
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: pod-reader
+rules:
+- apiGroups: [""]
+  resources: ["pods"]
+  verbs: ["get", "list"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: pod-scanner-binding
+subjects:
+- kind: ServiceAccount
+  name: pod-scanner
+  namespace: diagnostics
+roleRef:
+  kind: ClusterRole
+  name: pod-reader
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: diagnostic-scanner
+  namespace: diagnostics
+spec:
+  serviceAccountName: pod-scanner
+  restartPolicy: Never
+  containers:
+  - name: scanner
+    image: busybox:1.36
+    command:
+    - /bin/sh
+    - -c
+    - |
+      echo "=== LESSON23: RBAC ДИАГНОСТИКА ==="
+      echo "ServiceAccount: pod-scanner, ClusterRole: pod-reader"
+      
+      echo -n "WordPress поды (app=wordpress): "
+      WP_PODS=$(kubectl get pods -n dev -l app=wordpress --no-headers 2>/dev/null | wc -l)
+      if [ "$WP_PODS" -gt 0 ]; then
+        echo "✓ $WP_PODS найден(о)"
+        kubectl get pods -n dev -l app=wordpress -o wide
+      else
+        echo "нет подов"
+      fi
+      
+      echo ""
+      echo -n "Всего подов в dev: "
+      ALL_PODS=$(kubectl get pods -n dev --no-headers 2>/dev/null | wc -l)
+      if [ "$ALL_PODS" -gt 0 ]; then
+        echo "✓ $ALL_PODS подов"
+        kubectl get pods -n dev -o wide
+      else
+        echo "нет подов"
+      fi
+      
+      echo ""
+      echo "✓ SCAN COMPLETE ✓"
