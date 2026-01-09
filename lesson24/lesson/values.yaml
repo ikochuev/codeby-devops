@@ -1,0 +1,64 @@
+namespace: dev
+fullnameOverride: lesson-wp
+
+replicaCount: 1
+
+image:
+  repository: wordpress
+  tag: "latest"
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 80
+
+mysqlSecrets:
+  MYSQL_ROOT_PASSWORD: "rootpass123"
+  MYSQL_PASSWORD: "wppass123"
+
+wordpress:
+  config:
+    DB_HOST: "{{ include \"lesson.fullname\" . }}-mysql"
+    DB_NAME: "wordpress"
+    DB_USER: "wpuser"
+    DB_PASSWORD: "{{ .Values.mysqlSecrets.MYSQL_PASSWORD }}"
+  resources:
+    requests:
+      cpu: 250m
+      memory: 512Mi
+
+mysql:
+  replicaCount: 1
+  image:
+    repository: mysql
+    tag: "8.4"
+    pullPolicy: IfNotPresent
+  initSecurityContext:
+    runAsUser: 999
+    runAsGroup: 999
+    fsGroup: 999
+  database: wordpress
+  username: wpuser
+  persistence:
+    enabled: true
+    storageClass: "local-storage"
+    size: 2Gi
+  resources:
+    requests:
+      cpu: 250m
+      memory: 512Mi
+
+ingress:
+  enabled: true
+  className: "nginx"
+  hosts:
+    - host: wordpress.lesson.local
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+
+hpa:
+  enabled: true
+  minReplicas: 1
+  maxReplicas: 3
+  targetCPUUtilizationPercentage: 50

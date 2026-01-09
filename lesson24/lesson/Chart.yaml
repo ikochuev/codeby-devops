@@ -1,0 +1,6 @@
+apiVersion: v2
+name: lesson
+description: WordPress + MySQL Helm Chart для lesson
+type: application
+version: 0.1.24
+appVersion: "1.0"
