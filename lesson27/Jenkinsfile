@@ -1,0 +1,70 @@
+pipeline {
+    agent { label 'maven-agent25' }
+    tools { maven 'Maven3' }
+    
+    environment {
+        SONAR_TOKEN = credentials('sonarqube-token')
+    }
+    
+    stages {
+        stage('Checkout') {
+            steps {
+                checkout scm
+                sh 'pwd && ls -la lesson26/'
+            }
+        }
+        
+        stage('SonarQube Analysis') {
+            steps {
+                script {
+                    // Анализ hello-world (основного проекта)
+                    withSonarQubeEnv('SonarQube') {
+                        sh '''
+                            sonar-scanner \
+                              -Dsonar.projectKey=hello-world \
+                              -Dsonar.sources=lesson26/hello-world/src \
+                              -Dsonar.java.binaries=lesson26/hello-world/target/classes \
+                              -Dsonar.java.test.binaries=lesson26/hello-world/target/test-classes \
+                              -Dsonar.host.url=http://localhost:9000
+                        '''
+                    }
+                }
+            }
+        }
+        
+        stage('Quality Gate') {
+            steps {
+                timeout(time: 5, unit: 'MINUTES') {
+                    waitForQualityGate abortPipeline: true
+                }
+            }
+        }
+        
+        stage('Maven Build') {
+            steps {
+                sh 'mvn clean package -f lesson26/hello-world/pom.xml'
+                sh 'mvn clean package -f lesson26/hello-jenkins/pom.xml'
+                sh 'mvn clean package -f lesson26/hello-devops/pom.xml'
+            }
+        }
+        
+        stage('Maven Test') {
+            steps {
+                sh 'mvn test -f lesson26/hello-world/pom.xml'
+            }
+        }
+    }
+    
+    post {
+        always {
+            junit 'lesson26/hello-world/target/surefire-reports/*.xml'
+            archiveArtifacts artifacts: 'lesson26/*/target/*.jar', allowEmptyArchive: true
+        }
+        success {
+            echo 'lesson27 BUILD SUCCESS!'
+        }
+        failure {
+            echo 'BUILD FAILED - Quality Gate или тесты упали'
+        }
+    }
+}
