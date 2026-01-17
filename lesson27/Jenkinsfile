@@ -12,13 +12,16 @@ pipeline {
         
         stage('SonarQube Analysis') {
             steps {
-                withSonarQubeEnv(installationName: 'SonarQube', credentialsId: 'sonar') {
-                    sh '''
-                        mvn clean verify sonar:sonar \
-                          -f lesson26/hello-world/pom.xml \
-                          -Dsonar.projectKey=lesson27-hello-world \
-                          -Dsonar.host.url=http://localhost:9000
-                    '''
+                dir('lesson26/hello-world') {
+                    withSonarQubeEnv(installationName: 'SonarQube', credentialsId: 'sonar') {
+                        sh '''
+                            mvn clean compile sonar:sonar \
+                              -Dsonar.projectKey=lesson27-hello-world \
+                              -Dsonar.projectName="Hello World" \
+                              -Dsonar.host.url=http://localhost:9000 \
+                              -Dsonar.sourceEncoding=UTF-8
+                        '''
+                    }
                 }
             }
         }
@@ -52,6 +55,6 @@ pipeline {
             archiveArtifacts artifacts: 'lesson26/*/target/*.jar', allowEmptyArchive: true
         }
         success { echo 'lesson27 BUILD SUCCESS!' }
-        failure { echo 'lesson27 BUILD FAILED - Quality Gate!' }
+        failure { echo 'BUILD FAILED - Quality Gate!' }
     }
 }
