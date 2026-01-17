@@ -10,16 +10,25 @@ pipeline {
             }
         }
         
+        stage('Build Hello World') {
+            steps {
+                dir('lesson26/hello-world') {
+                    sh 'mvn clean compile'
+                }
+            }
+        }
+        
         stage('SonarQube Analysis') {
             steps {
                 dir('lesson26/hello-world') {
                     withSonarQubeEnv(installationName: 'SonarQube', credentialsId: 'sonar') {
                         sh '''
-                            mvn clean compile sonar:sonar \
+                            mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.9.1.2184:sonar \
                               -Dsonar.projectKey=lesson27-hello-world \
                               -Dsonar.projectName="Hello World" \
-                              -Dsonar.host.url=http://localhost:9000 \
-                              -Dsonar.sourceEncoding=UTF-8
+                              -Dsonar.sources=src \
+                              -Dsonar.java.binaries=target/classes \
+                              -Dsonar.host.url=http://192.168.1.14:9000
                         '''
                     }
                 }
