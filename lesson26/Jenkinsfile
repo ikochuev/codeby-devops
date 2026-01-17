@@ -1,53 +1,38 @@
 pipeline {
-    agent { docker { image 'maven:3.9.6'; args '-u root' } }
-    environment {
-        GITHUB_URL = "https://github.com/ikochuev/codeby-devops.git"
-        GITHUB_CRED = "github25"
-        GITHUB_BRANCH = "lesson26"
-        Hello_devops = "lesson26/hello-devops"
-        Hello_jenkins = "lesson26/hello-jenkins"
-        Hello_world = "lesson26/hello-world"
-    }
+    agent { label 'maven-agent25' }      // ✅ Твой агент из lesson25
+    tools { maven 'maven25' }            // ✅ Maven tool из Global Config
+    
     stages {
-        stage('Check out') {
+        stage('Checkout') {
             steps {
-                git branch: env.GITHUB_BRANCH, changelog: false, 
-                    credentialsId: env.GITHUB_CRED, poll: false, url: env.GITHUB_URL
+                checkout scm
+                sh 'ls -la lesson26/'  // ✅ Debug: покажи структуру
             }
         }
-        stage('Build and Test APP') {
-            parallel {
-                stage('DEVOPS') {
-                    when { changeset "${env.Hello_devops}/**/*.java" }
-                    stages {
-                        stage('Build DEVOPS') { steps { dir(env.Hello_devops) { sh 'mvn -B -DskipTests clean package' } } }
-                        stage('Test DEVOPS') {
-                            steps { dir(env.Hello_devops) { sh 'mvn test' } }
-                            post { always { junit '**/target/surefire-reports/*.xml'; archiveArtifacts '**/target/*.jar' } }
-                        }
-                    }
-                }
-                stage('JENKINS') {
-                    when { changeset "${env.Hello_jenkins}/**/*.java" }
-                    stages {
-                        stage('Build JENKINS') { steps { dir(env.Hello_jenkins) { sh 'mvn -B -DskipTests clean package' } } }
-                        stage('Test JENKINS') {
-                            steps { dir(env.Hello_jenkins) { sh 'mvn test' } }
-                            post { always { junit '**/target/surefire-reports/*.xml'; archiveArtifacts '**/target/*.jar' } }
-                        }
-                    }
-                }
-                stage('WORLD') {
-                    when { changeset "${env.Hello_world}/**/*.java" }
-                    stages {
-                        stage('Build WORLD') { steps { dir(env.Hello_world) { sh 'mvn -B -DskipTests clean package' } } }
-                        stage('Test WORLD') {
-                            steps { dir(env.Hello_world) { sh 'mvn test' } }
-                            post { always { junit '**/target/surefire-reports/*.xml'; archiveArtifacts '**/target/*.jar' } }
-                        }
-                    }
-                }
+        
+        stage('Maven Build') {
+            steps {
+                sh 'mvn clean package -f lesson26/hello-world/pom.xml'
+                sh 'mvn clean package -f lesson26/hello-jenkins/pom.xml'
+                sh 'mvn clean package -f lesson26/hello-devops/pom.xml'
             }
+        }
+        
+        stage('Maven Test') {
+            steps {
+                sh 'mvn test -f lesson26/hello-world/pom.xml'
+            }
+        }
+    }
+    
+    post {
+        always {
+            // ✅ Относительные пути от workspace (lesson26/)
+            junit 'lesson26/hello-world/target/surefire-reports/*.xml[attached_file:1]'
+            archiveArtifacts artifacts: 'lesson26/*/target/*.jar', allowEmptyArchive: true
+        }
+        success {
+            echo '🎉 lesson26 BUILD SUCCESS!'
         }
     }
 }
