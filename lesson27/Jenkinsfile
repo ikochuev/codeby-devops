@@ -14,10 +14,9 @@ pipeline {
             steps {
                 withSonarQubeEnv(installationName: 'SonarQube', credentialsId: 'sonar') {
                     sh '''
-                        sonar-scanner \
+                        mvn clean verify sonar:sonar \
+                          -f lesson26/hello-world/pom.xml \
                           -Dsonar.projectKey=lesson27-hello-world \
-                          -Dsonar.sources=lesson26/hello-world/src/main/java \
-                          -Dsonar.java.binaries=lesson26/hello-world/target/classes \
                           -Dsonar.host.url=http://localhost:9000
                     '''
                 }
