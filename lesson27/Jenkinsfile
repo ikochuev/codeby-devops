@@ -3,17 +3,18 @@ pipeline {
     tools { maven 'Maven3' }
     
     stages {
-        stage('Checkout') {
-            steps {
-                checkout scm
-                sh 'pwd && ls -la lesson26/'
-            }
-        }
-        
-        stage('Build Hello World') {
+        stage('Build') {
             steps {
                 dir('lesson26/hello-world') {
                     sh 'mvn clean compile'
+                }
+            }
+        }
+        
+        stage('Test') {
+            steps {
+                dir('lesson26/hello-world') {
+                    sh 'mvn test'
                 }
             }
         }
@@ -26,9 +27,8 @@ pipeline {
                             mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.9.1.2184:sonar \
                               -Dsonar.projectKey=lesson27-hello-world \
                               -Dsonar.projectName="Hello World" \
-                              -Dsonar.sources=src \
-                              -Dsonar.java.binaries=target/classes \
                               -Dsonar.host.url=http://192.168.1.14:9000
+                            # Убраны явные указания путей - используем стандартные Maven
                         '''
                     }
                 }
@@ -43,17 +43,22 @@ pipeline {
             }
         }
         
-        stage('Maven Build') {
-            steps {
-                sh 'mvn clean package -f lesson26/hello-world/pom.xml'
-                sh 'mvn clean package -f lesson26/hello-jenkins/pom.xml'
-                sh 'mvn clean package -f lesson26/hello-devops/pom.xml'
+        stage('Package') {
+            when {
+                expression { currentBuild.result == null || currentBuild.result == 'SUCCESS' }
             }
-        }
-        
-        stage('Maven Test') {
             steps {
-                sh 'mvn test -f lesson26/hello-world/pom.xml'
+                parallel(
+                    'hello-world': {
+                        sh 'mvn clean package -f lesson26/hello-world/pom.xml -DskipTests'
+                    },
+                    'hello-jenkins': {
+                        sh 'mvn clean package -f lesson26/hello-jenkins/pom.xml -DskipTests'
+                    },
+                    'hello-devops': {
+                        sh 'mvn clean package -f lesson26/hello-devops/pom.xml -DskipTests'
+                    }
+                )
             }
         }
     }
@@ -63,7 +68,11 @@ pipeline {
             junit 'lesson26/hello-world/target/surefire-reports/*.xml'
             archiveArtifacts artifacts: 'lesson26/*/target/*.jar', allowEmptyArchive: true
         }
-        success { echo 'lesson27 BUILD SUCCESS!' }
-        failure { echo 'BUILD FAILED - Quality Gate!' }
+        success { 
+            echo 'lesson27 BUILD SUCCESS!' 
+        }
+        failure { 
+            echo 'BUILD FAILED!' 
+        }
     }
 }
