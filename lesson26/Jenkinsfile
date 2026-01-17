@@ -1,15 +1,14 @@
 pipeline {
-    agent { label 'maven-agent25' }      // ✅ Твой агент из lesson25
-    tools { maven 'maven25' }            // ✅ Maven tool из Global Config
+    agent { label 'maven-agent25' }
+    tools { maven 'Maven3' }
     
     stages {
         stage('Checkout') {
             steps {
                 checkout scm
-                sh 'ls -la lesson26/'  // ✅ Debug: покажи структуру
+                sh 'pwd && ls -la lesson26/'
             }
         }
-        
         stage('Maven Build') {
             steps {
                 sh 'mvn clean package -f lesson26/hello-world/pom.xml'
@@ -17,22 +16,19 @@ pipeline {
                 sh 'mvn clean package -f lesson26/hello-devops/pom.xml'
             }
         }
-        
         stage('Maven Test') {
             steps {
                 sh 'mvn test -f lesson26/hello-world/pom.xml'
             }
         }
     }
-    
     post {
         always {
-            // ✅ Относительные пути от workspace (lesson26/)
-            junit 'lesson26/hello-world/target/surefire-reports/*.xml[attached_file:1]'
+            junit 'lesson26/hello-world/target/surefire-reports/*.xml'
             archiveArtifacts artifacts: 'lesson26/*/target/*.jar', allowEmptyArchive: true
         }
         success {
-            echo '🎉 lesson26 BUILD SUCCESS!'
+            echo 'lesson26 BUILD SUCCESS!'
         }
     }
 }
