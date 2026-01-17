@@ -2,10 +2,6 @@ pipeline {
     agent { label 'maven-agent25' }
     tools { maven 'Maven3' }
     
-    environment {
-        SONAR_TOKEN = credentials('sonarqube-token')
-    }
-    
     stages {
         stage('Checkout') {
             steps {
@@ -16,18 +12,14 @@ pipeline {
         
         stage('SonarQube Analysis') {
             steps {
-                script {
-                    // Анализ hello-world (основного проекта)
-                    withSonarQubeEnv('SonarQube') {
-                        sh '''
-                            sonar-scanner \
-                              -Dsonar.projectKey=hello-world \
-                              -Dsonar.sources=lesson26/hello-world/src \
-                              -Dsonar.java.binaries=lesson26/hello-world/target/classes \
-                              -Dsonar.java.test.binaries=lesson26/hello-world/target/test-classes \
-                              -Dsonar.host.url=http://localhost:9000
-                        '''
-                    }
+                withSonarQubeEnv(installationName: 'SonarQube', credentialsId: 'sonar') {
+                    sh '''
+                        sonar-scanner \
+                          -Dsonar.projectKey=lesson27-hello-world \
+                          -Dsonar.sources=lesson26/hello-world/src/main/java \
+                          -Dsonar.java.binaries=lesson26/hello-world/target/classes \
+                          -Dsonar.host.url=http://localhost:9000
+                    '''
                 }
             }
         }
@@ -60,11 +52,7 @@ pipeline {
             junit 'lesson26/hello-world/target/surefire-reports/*.xml'
             archiveArtifacts artifacts: 'lesson26/*/target/*.jar', allowEmptyArchive: true
         }
-        success {
-            echo 'lesson27 BUILD SUCCESS!'
-        }
-        failure {
-            echo 'BUILD FAILED - Quality Gate или тесты упали'
-        }
+        success { echo 'lesson27 BUILD SUCCESS!' }
+        failure { echo 'lesson27 BUILD FAILED - Quality Gate!' }
     }
 }
