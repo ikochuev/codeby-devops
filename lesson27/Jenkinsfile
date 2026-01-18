@@ -3,47 +3,138 @@ pipeline {
     tools { maven 'Maven3' }
     
     stages {
-        stage('Build') {
-            steps {
-                dir('lesson26/hello-world') {
-                    sh 'mvn clean compile'
+        stage('Build All') {
+            parallel {
+                stage('Build Hello World') {
+                    steps {
+                        dir('lesson26/hello-world') {
+                            sh 'mvn clean compile'
+                        }
+                    }
                 }
-            }
-        }
-        
-        stage('Test') {
-            steps {
-                dir('lesson26/hello-world') {
-                    sh 'mvn test'
+                stage('Build Hello Jenkins') {
+                    steps {
+                        dir('lesson26/hello-jenkins') {
+                            sh 'mvn clean compile'
+                        }
+                    }
                 }
-            }
-        }
-        
-        stage('SonarQube Analysis') {
-            steps {
-                dir('lesson26/hello-world') {
-                    withSonarQubeEnv(installationName: 'SonarQube', credentialsId: 'sonar') {
-                        sh '''
-                            mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.9.1.2184:sonar \
-                              -Dsonar.projectKey=lesson27-hello-world \
-                              -Dsonar.projectName="Hello World" \
-                              -Dsonar.host.url=http://192.168.1.14:9000
-                            # Убраны явные указания путей - используем стандартные Maven
-                        '''
+                stage('Build Hello DevOps') {
+                    steps {
+                        dir('lesson26/hello-devops') {
+                            sh 'mvn clean compile'
+                        }
                     }
                 }
             }
         }
         
-        stage('Quality Gate') {
-            steps {
-                timeout(time: 5, unit: 'MINUTES') {
-                    waitForQualityGate abortPipeline: true
+        stage('Test All') {
+            parallel {
+                stage('Test Hello World') {
+                    steps {
+                        dir('lesson26/hello-world') {
+                            sh 'mvn test'
+                        }
+                    }
+                }
+                stage('Test Hello Jenkins') {
+                    steps {
+                        dir('lesson26/hello-jenkins') {
+                            sh 'mvn test'
+                        }
+                    }
+                }
+                stage('Test Hello DevOps') {
+                    steps {
+                        dir('lesson26/hello-devops') {
+                            sh 'mvn test'
+                        }
+                    }
                 }
             }
         }
         
-        stage('Package') {
+        stage('SonarQube Analysis with Quality Gate') {
+            parallel {
+                stage('Hello World Analysis & Gate') {
+                    steps {
+                        dir('lesson26/hello-world') {
+                            script {
+                                // Шаг 1: Анализ
+                                withSonarQubeEnv(installationName: 'SonarQube', credentialsId: 'sonar') {
+                                    sh '''
+                                        mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.9.1.2184:sonar \
+                                          -Dsonar.projectKey=lesson27-hello-world \
+                                          -Dsonar.projectName="Hello World" \
+                                          -Dsonar.host.url=http://192.168.1.14:9000
+                                    '''
+                                }
+                                
+                                // Шаг 2: Ожидание обработки
+                                echo "Waiting 30 seconds for Hello World analysis processing..."
+                                sleep(time: 30, unit: 'SECONDS')
+                                
+                                // Шаг 3: Quality Gate
+                                timeout(time: 5, unit: 'MINUTES') {
+                                    waitForQualityGate abortPipeline: true
+                                }
+                            }
+                        }
+                    }
+                }
+                
+                stage('Hello Jenkins Analysis & Gate') {
+                    steps {
+                        dir('lesson26/hello-jenkins') {
+                            script {
+                                withSonarQubeEnv(installationName: 'SonarQube', credentialsId: 'sonar') {
+                                    sh '''
+                                        mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.9.1.2184:sonar \
+                                          -Dsonar.projectKey=lesson27-hello-jenkins \
+                                          -Dsonar.projectName="Hello Jenkins" \
+                                          -Dsonar.host.url=http://192.168.1.14:9000
+                                    '''
+                                }
+                                
+                                echo "Waiting 30 seconds for Hello Jenkins analysis processing..."
+                                sleep(time: 30, unit: 'SECONDS')
+                                
+                                timeout(time: 5, unit: 'MINUTES') {
+                                    waitForQualityGate abortPipeline: true
+                                }
+                            }
+                        }
+                    }
+                }
+                
+                stage('Hello DevOps Analysis & Gate') {
+                    steps {
+                        dir('lesson26/hello-devops') {
+                            script {
+                                withSonarQubeEnv(installationName: 'SonarQube', credentialsId: 'sonar') {
+                                    sh '''
+                                        mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.9.1.2184:sonar \
+                                          -Dsonar.projectKey=lesson27-hello-devops \
+                                          -Dsonar.projectName="Hello DevOps" \
+                                          -Dsonar.host.url=http://192.168.1.14:9000
+                                    '''
+                                }
+                                
+                                echo "Waiting 30 seconds for Hello DevOps analysis processing..."
+                                sleep(time: 30, unit: 'SECONDS')
+                                
+                                timeout(time: 5, unit: 'MINUTES') {
+                                    waitForQualityGate abortPipeline: true
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        stage('Package All') {
             when {
                 expression { currentBuild.result == null || currentBuild.result == 'SUCCESS' }
             }
@@ -65,14 +156,21 @@ pipeline {
     
     post {
         always {
+            // Собираем результаты тестов из всех проектов
             junit 'lesson26/hello-world/target/surefire-reports/*.xml'
+            junit 'lesson26/hello-jenkins/target/surefire-reports/*.xml'
+            junit 'lesson26/hello-devops/target/surefire-reports/*.xml'
+            
             archiveArtifacts artifacts: 'lesson26/*/target/*.jar', allowEmptyArchive: true
         }
         success { 
-            echo 'lesson27 BUILD SUCCESS!' 
+            echo 'lesson27 BUILD SUCCESS! All Quality Gates PASSED!' 
         }
         failure { 
-            echo 'BUILD FAILED!' 
+            echo 'BUILD FAILED! Check Quality Gates in SonarQube!' 
+        }
+        aborted {
+            echo 'BUILD ABORTED!'
         }
     }
 }
