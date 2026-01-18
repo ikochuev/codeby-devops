@@ -112,9 +112,9 @@ pipeline {
         stage('Check Quality Gates') {
             steps {
                 script {
-                    // Проверяем Quality Gates последовательно для каждого проекта
                     echo "Checking Quality Gate for Hello World..."
                     dir('lesson26/hello-world') {
+                        sleep(time: 10, unit: 'SECONDS')
                         timeout(time: 3, unit: 'MINUTES') {
                             waitForQualityGate abortPipeline: true
                         }
@@ -122,6 +122,7 @@ pipeline {
                     
                     echo "Checking Quality Gate for Hello Jenkins..."
                     dir('lesson26/hello-jenkins') {
+                        sleep(time: 10, unit: 'SECONDS')
                         timeout(time: 3, unit: 'MINUTES') {
                             waitForQualityGate abortPipeline: true
                         }
@@ -129,6 +130,7 @@ pipeline {
                     
                     echo "Checking Quality Gate for Hello DevOps..."
                     dir('lesson26/hello-devops') {
+                        sleep(time: 10, unit: 'SECONDS')
                         timeout(time: 3, unit: 'MINUTES') {
                             waitForQualityGate abortPipeline: true
                         }
@@ -156,17 +158,14 @@ pipeline {
     
     post {
         always {
-            // Собираем JUnit отчеты из ВСЕХ проектов
-            junit 'lesson26/hello-*/target/surefire-reports/*.xml'
-            
-            // Архивируем артефакты
-            archiveArtifacts artifacts: 'lesson26/*/target/*.jar', allowEmptyArchive: true
+            junit 'lesson26/**/target/surefire-reports/*.xml'
+            archiveArtifacts artifacts: 'lesson26/**/target/*.jar', allowEmptyArchive: true
         }
         success { 
-            echo 'lesson27 BUILD SUCCESS! All Quality Gates PASSED!' 
+            echo 'BUILD SUCCESS! All Quality Gates PASSED!' 
         }
         failure { 
-            echo 'BUILD FAILED! Check logs for details.' 
+            echo 'BUILD FAILED!' 
         }
         aborted {
             echo 'BUILD ABORTED!'
