@@ -1,0 +1,1023 @@
+Started by user Student Codeby Academy
+Connecting to https://api.github.com using ikochuev/****** (GitHub lesson25)
+Obtained lesson27/Jenkinsfile from 38756941028be1da05d6ac287ab76bc8128a65b3
+[Pipeline] Start of Pipeline
+[Pipeline] node
+Running on maven-agent25 in /home/jenkins/workspace/multi_lesson27
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Declarative: Checkout SCM)
+[Pipeline] checkout
+The recommended git tool is: NONE
+using credential github25
+Fetching changes from the remote Git repository
+Fetching without tags
+Checking out Revision 38756941028be1da05d6ac287ab76bc8128a65b3 (lesson27)
+Commit message: "lesson27: fix some parameters"
+ > git rev-parse --resolve-git-dir /home/jenkins/workspace/multi_lesson27/.git # timeout=10
+ > git config remote.origin.url https://github.com/ikochuev/codeby-devops.git # timeout=10
+Fetching upstream changes from https://github.com/ikochuev/codeby-devops.git
+ > git --version # timeout=10
+ > git --version # 'git version 2.52.0'
+using GIT_ASKPASS to set credentials GitHub lesson25
+ > git fetch --no-tags --force --progress -- https://github.com/ikochuev/codeby-devops.git +refs/heads/lesson27:refs/remotes/origin/lesson27 # timeout=10
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f 38756941028be1da05d6ac287ab76bc8128a65b3 # timeout=10
+ > git rev-list --no-walk c908184abe0a69f2a42ec1892abfe695efcef16c # timeout=10
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Declarative: Tool Install)
+[Pipeline] tool
+[Pipeline] envVarsForTool
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Build All)
+[Pipeline] parallel
+[Pipeline] { (Branch: Build Hello World)
+[Pipeline] { (Branch: Build Hello Jenkins)
+[Pipeline] { (Branch: Build Hello DevOps)
+[Pipeline] stage
+[Pipeline] { (Build Hello World)
+[Pipeline] stage
+[Pipeline] { (Build Hello Jenkins)
+[Pipeline] stage
+[Pipeline] { (Build Hello DevOps)
+[Pipeline] tool
+[Pipeline] tool
+[Pipeline] tool
+[Pipeline] envVarsForTool
+[Pipeline] envVarsForTool
+[Pipeline] envVarsForTool
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] dir
+Running in /home/jenkins/workspace/multi_lesson27/lesson26/hello-world
+[Pipeline] {
+[Pipeline] dir
+Running in /home/jenkins/workspace/multi_lesson27/lesson26/hello-jenkins
+[Pipeline] {
+[Pipeline] dir
+Running in /home/jenkins/workspace/multi_lesson27/lesson26/hello-devops
+[Pipeline] {
+[Pipeline] sh
+[Pipeline] sh
+[Pipeline] sh
++ mvn clean compile
++ mvn clean compile
++ mvn clean compile
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] -------------------< com.mycompany.app:hello-world >--------------------
+[INFO] Building hello-world 1.0-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- clean:3.2.0:clean (default-clean) @ hello-world ---
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ------------------< com.mycompany.app:hello-jenkins >-------------------
+[INFO] Building hello-jenkins 1.0-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- clean:3.2.0:clean (default-clean) @ hello-jenkins ---
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] -------------------< com.mycompany.app:hello-devops >-------------------
+[INFO] Building hello-devops 1.0-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- clean:3.2.0:clean (default-clean) @ hello-devops ---
+[INFO] Deleting /home/jenkins/workspace/multi_lesson27/lesson26/hello-world/target
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ hello-world ---
+[INFO] Deleting /home/jenkins/workspace/multi_lesson27/lesson26/hello-devops/target
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ hello-devops ---
+[INFO] Deleting /home/jenkins/workspace/multi_lesson27/lesson26/hello-jenkins/target
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ hello-jenkins ---
+[WARNING] Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+[INFO] skip non existing resourceDirectory /home/jenkins/workspace/multi_lesson27/lesson26/hello-world/src/main/resources
+[INFO] 
+[INFO] --- compiler:3.13.0:compile (default-compile) @ hello-world ---
+[WARNING] Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+[INFO] skip non existing resourceDirectory /home/jenkins/workspace/multi_lesson27/lesson26/hello-devops/src/main/resources
+[INFO] 
+[INFO] --- compiler:3.13.0:compile (default-compile) @ hello-devops ---
+[WARNING] Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+[INFO] skip non existing resourceDirectory /home/jenkins/workspace/multi_lesson27/lesson26/hello-jenkins/src/main/resources
+[INFO] 
+[INFO] --- compiler:3.13.0:compile (default-compile) @ hello-jenkins ---
+[INFO] Recompiling the module because of changed source code.
+[WARNING] File encoding has not been set, using platform encoding UTF-8, i.e. build is platform dependent!
+[INFO] Compiling 1 source file with javac [debug target 17] to target/classes
+[INFO] Recompiling the module because of changed source code.
+[WARNING] File encoding has not been set, using platform encoding UTF-8, i.e. build is platform dependent!
+[INFO] Compiling 1 source file with javac [debug target 17] to target/classes
+[INFO] Recompiling the module because of changed source code.
+[WARNING] File encoding has not been set, using platform encoding UTF-8, i.e. build is platform dependent!
+[INFO] Compiling 1 source file with javac [debug target 17] to target/classes
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  3.088 s
+[INFO] Finished at: 2026-01-18T00:55:10Z
+[INFO] ------------------------------------------------------------------------
+[Pipeline] }
+[Pipeline] // dir
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  3.276 s
+[INFO] Finished at: 2026-01-18T00:55:10Z
+[INFO] ------------------------------------------------------------------------
+[Pipeline] }
+[Pipeline] // dir
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  3.145 s
+[INFO] Finished at: 2026-01-18T00:55:10Z
+[INFO] ------------------------------------------------------------------------
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] // dir
+[Pipeline] }
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // parallel
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Test All)
+[Pipeline] parallel
+[Pipeline] { (Branch: Test Hello World)
+[Pipeline] { (Branch: Test Hello Jenkins)
+[Pipeline] { (Branch: Test Hello DevOps)
+[Pipeline] stage
+[Pipeline] { (Test Hello World)
+[Pipeline] stage
+[Pipeline] { (Test Hello Jenkins)
+[Pipeline] stage
+[Pipeline] { (Test Hello DevOps)
+[Pipeline] tool
+[Pipeline] tool
+[Pipeline] tool
+[Pipeline] envVarsForTool
+[Pipeline] envVarsForTool
+[Pipeline] envVarsForTool
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] dir
+Running in /home/jenkins/workspace/multi_lesson27/lesson26/hello-world
+[Pipeline] {
+[Pipeline] dir
+Running in /home/jenkins/workspace/multi_lesson27/lesson26/hello-jenkins
+[Pipeline] {
+[Pipeline] dir
+Running in /home/jenkins/workspace/multi_lesson27/lesson26/hello-devops
+[Pipeline] {
+[Pipeline] sh
+[Pipeline] sh
+[Pipeline] sh
++ mvn test
++ mvn test
++ mvn test
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] -------------------< com.mycompany.app:hello-world >--------------------
+[INFO] Building hello-world 1.0-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ hello-world ---
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ------------------< com.mycompany.app:hello-jenkins >-------------------
+[INFO] Building hello-jenkins 1.0-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ hello-jenkins ---
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] -------------------< com.mycompany.app:hello-devops >-------------------
+[INFO] Building hello-devops 1.0-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ hello-devops ---
+[WARNING] Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+[INFO] skip non existing resourceDirectory /home/jenkins/workspace/multi_lesson27/lesson26/hello-world/src/main/resources
+[INFO] 
+[INFO] --- compiler:3.13.0:compile (default-compile) @ hello-world ---
+[WARNING] Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+[INFO] skip non existing resourceDirectory /home/jenkins/workspace/multi_lesson27/lesson26/hello-jenkins/src/main/resources
+[INFO] 
+[INFO] --- compiler:3.13.0:compile (default-compile) @ hello-jenkins ---
+[WARNING] Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+[INFO] skip non existing resourceDirectory /home/jenkins/workspace/multi_lesson27/lesson26/hello-devops/src/main/resources
+[INFO] 
+[INFO] --- compiler:3.13.0:compile (default-compile) @ hello-devops ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ hello-jenkins ---
+[WARNING] Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+[INFO] skip non existing resourceDirectory /home/jenkins/workspace/multi_lesson27/lesson26/hello-jenkins/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.13.0:testCompile (default-testCompile) @ hello-jenkins ---
+[INFO] Recompiling the module because of changed source code.
+[WARNING] File encoding has not been set, using platform encoding UTF-8, i.e. build is platform dependent!
+[INFO] Compiling 1 source file with javac [debug target 17] to target/test-classes
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ hello-world ---
+[WARNING] Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+[INFO] skip non existing resourceDirectory /home/jenkins/workspace/multi_lesson27/lesson26/hello-world/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.13.0:testCompile (default-testCompile) @ hello-world ---
+[INFO] Recompiling the module because of changed source code.
+[WARNING] File encoding has not been set, using platform encoding UTF-8, i.e. build is platform dependent!
+[INFO] Compiling 1 source file with javac [debug target 17] to target/test-classes
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ hello-devops ---
+[WARNING] Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+[INFO] skip non existing resourceDirectory /home/jenkins/workspace/multi_lesson27/lesson26/hello-devops/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.13.0:testCompile (default-testCompile) @ hello-devops ---
+[INFO] Recompiling the module because of changed source code.
+[WARNING] File encoding has not been set, using platform encoding UTF-8, i.e. build is platform dependent!
+[INFO] Compiling 1 source file with javac [debug target 17] to target/test-classes
+[INFO] 
+[INFO] --- surefire:3.2.5:test (default-test) @ hello-world ---
+[INFO] 
+[INFO] --- surefire:3.2.5:test (default-test) @ hello-devops ---
+[INFO] 
+[INFO] --- surefire:3.2.5:test (default-test) @ hello-jenkins ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running com.mycompany.app.AppTest
+[INFO] Running com.mycompany.app.AppTest
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.113 s -- in com.mycompany.app.AppTest
+[INFO] Running com.mycompany.app.AppTest
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.108 s -- in com.mycompany.app.AppTest
+[INFO] 
+[INFO] Results:
+[INFO] 
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  5.864 s
+[INFO] Finished at: 2026-01-18T00:55:21Z
+[INFO] ------------------------------------------------------------------------
+[Pipeline] }
+[Pipeline] // dir
+[Pipeline] }
+[INFO] 
+[INFO] Results:
+[INFO] 
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  5.857 s
+[INFO] Finished at: 2026-01-18T00:55:21Z
+[INFO] ------------------------------------------------------------------------
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.110 s -- in com.mycompany.app.AppTest
+[INFO] 
+[INFO] Results:
+[INFO] 
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  5.862 s
+[INFO] Finished at: 2026-01-18T00:55:21Z
+[INFO] ------------------------------------------------------------------------
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] }
+[Pipeline] }
+[Pipeline] // dir
+[Pipeline] // dir
+[Pipeline] }
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] }
+[Pipeline] // parallel
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Generate Test Reports)
+[Pipeline] tool
+[Pipeline] envVarsForTool
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] script
+[Pipeline] {
+[Pipeline] sh
++ mkdir -p /home/jenkins/workspace/multi_lesson27/test-reports
++ cat
++ cat
++ cat
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (SonarQube Analysis with Quality Gates)
+[Pipeline] parallel
+[Pipeline] { (Branch: Hello World Full)
+[Pipeline] { (Branch: Hello Jenkins Full)
+[Pipeline] { (Branch: Hello DevOps Full)
+[Pipeline] stage
+[Pipeline] { (Hello World Full)
+[Pipeline] stage
+[Pipeline] { (Hello Jenkins Full)
+[Pipeline] stage
+[Pipeline] { (Hello DevOps Full)
+[Pipeline] tool
+[Pipeline] tool
+[Pipeline] tool
+[Pipeline] envVarsForTool
+[Pipeline] envVarsForTool
+[Pipeline] envVarsForTool
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] dir
+Running in /home/jenkins/workspace/multi_lesson27/lesson26/hello-world
+[Pipeline] {
+[Pipeline] dir
+Running in /home/jenkins/workspace/multi_lesson27/lesson26/hello-jenkins
+[Pipeline] {
+[Pipeline] dir
+Running in /home/jenkins/workspace/multi_lesson27/lesson26/hello-devops
+[Pipeline] {
+[Pipeline] script
+[Pipeline] {
+[Pipeline] script
+[Pipeline] {
+[Pipeline] script
+[Pipeline] {
+[Pipeline] withSonarQubeEnv
+Injecting SonarQube environment variables using the configuration: SonarQube
+[Pipeline] withSonarQubeEnv
+Injecting SonarQube environment variables using the configuration: SonarQube
+[Pipeline] withSonarQubeEnv
+Injecting SonarQube environment variables using the configuration: SonarQube
+[Pipeline] {
+[Pipeline] {
+[Pipeline] {
+[Pipeline] sh
+[Pipeline] sh
+[Pipeline] sh
++ mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.9.1.2184:sonar '-Dsonar.projectKey=lesson27-hello-world' '-Dsonar.projectName=Hello World' '-Dsonar.host.url=http://192.168.1.14:9000'
++ mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.9.1.2184:sonar '-Dsonar.projectKey=lesson27-hello-jenkins' '-Dsonar.projectName=Hello Jenkins' '-Dsonar.host.url=http://192.168.1.14:9000'
++ mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.9.1.2184:sonar '-Dsonar.projectKey=lesson27-hello-devops' '-Dsonar.projectName=Hello DevOps' '-Dsonar.host.url=http://192.168.1.14:9000'
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] -------------------< com.mycompany.app:hello-world >--------------------
+[INFO] Building hello-world 1.0-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- sonar:3.9.1.2184:sonar (default-cli) @ hello-world ---
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ------------------< com.mycompany.app:hello-jenkins >-------------------
+[INFO] Building hello-jenkins 1.0-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- sonar:3.9.1.2184:sonar (default-cli) @ hello-jenkins ---
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] -------------------< com.mycompany.app:hello-devops >-------------------
+[INFO] Building hello-devops 1.0-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- sonar:3.9.1.2184:sonar (default-cli) @ hello-devops ---
+[INFO] User cache: /home/jenkins/.sonar/cache
+[INFO] User cache: /home/jenkins/.sonar/cache
+[INFO] SonarQube version: 9.9.8.100196
+[INFO] SonarQube version: 9.9.8.100196
+[INFO] User cache: /home/jenkins/.sonar/cache
+[INFO] Default locale: "en_US", source code encoding: "UTF-8" (analysis is platform dependent)
+[INFO] Default locale: "en_US", source code encoding: "UTF-8" (analysis is platform dependent)
+[INFO] SonarQube version: 9.9.8.100196
+[INFO] Default locale: "en_US", source code encoding: "UTF-8" (analysis is platform dependent)
+[INFO] Load global settings
+[INFO] Load global settings (done) | time=264ms
+[INFO] Server id: 147B411E-AZvN8-9XtGuX_20gYs2E
+[INFO] User cache: /home/jenkins/.sonar/cache
+[INFO] Load/download plugins
+[INFO] Load plugins index
+[INFO] Load global settings
+[INFO] Load global settings (done) | time=283ms
+[INFO] Server id: 147B411E-AZvN8-9XtGuX_20gYs2E
+[INFO] User cache: /home/jenkins/.sonar/cache
+[INFO] Load/download plugins
+[INFO] Load plugins index
+[INFO] Load plugins index (done) | time=173ms
+[INFO] Load/download plugins (done) | time=354ms
+[INFO] Load plugins index (done) | time=169ms
+[INFO] Load/download plugins (done) | time=369ms
+[INFO] Load global settings
+[INFO] Load global settings (done) | time=315ms
+[INFO] Server id: 147B411E-AZvN8-9XtGuX_20gYs2E
+[INFO] User cache: /home/jenkins/.sonar/cache
+[INFO] Load/download plugins
+[INFO] Load plugins index
+[INFO] Load plugins index (done) | time=299ms
+[INFO] Load/download plugins (done) | time=507ms
+[INFO] Process project properties
+[INFO] Process project properties (done) | time=47ms
+[INFO] Execute project builders
+[INFO] Execute project builders (done) | time=4ms
+[INFO] Project key: lesson27-hello-devops
+[INFO] Base dir: /home/jenkins/workspace/multi_lesson27/lesson26/hello-devops
+[INFO] Working dir: /home/jenkins/workspace/multi_lesson27/lesson26/hello-devops/target/sonar
+[INFO] Load project settings for component key: 'lesson27-hello-devops'
+[INFO] Load project settings for component key: 'lesson27-hello-devops' (done) | time=36ms
+[INFO] Process project properties
+[INFO] Process project properties (done) | time=41ms
+[INFO] Execute project builders
+[INFO] Execute project builders (done) | time=4ms
+[INFO] Project key: lesson27-hello-world
+[INFO] Base dir: /home/jenkins/workspace/multi_lesson27/lesson26/hello-world
+[INFO] Working dir: /home/jenkins/workspace/multi_lesson27/lesson26/hello-world/target/sonar
+[INFO] Load project settings for component key: 'lesson27-hello-world'
+[INFO] Load project settings for component key: 'lesson27-hello-world' (done) | time=31ms
+[INFO] Auto-configuring with CI 'Jenkins'
+[INFO] Load quality profiles
+[INFO] Auto-configuring with CI 'Jenkins'
+[INFO] Load quality profiles
+[INFO] Process project properties
+[INFO] Process project properties (done) | time=45ms
+[INFO] Execute project builders
+[INFO] Execute project builders (done) | time=5ms
+[INFO] Project key: lesson27-hello-jenkins
+[INFO] Base dir: /home/jenkins/workspace/multi_lesson27/lesson26/hello-jenkins
+[INFO] Working dir: /home/jenkins/workspace/multi_lesson27/lesson26/hello-jenkins/target/sonar
+[INFO] Load project settings for component key: 'lesson27-hello-jenkins'
+[INFO] Load project settings for component key: 'lesson27-hello-jenkins' (done) | time=42ms
+[INFO] Load quality profiles (done) | time=91ms
+[INFO] Load active rules
+[INFO] Load quality profiles (done) | time=141ms
+[INFO] Load active rules
+[INFO] Auto-configuring with CI 'Jenkins'
+[INFO] Load quality profiles
+[INFO] Load quality profiles (done) | time=104ms
+[INFO] Load active rules
+[INFO] Load active rules (done) | time=2856ms
+[INFO] Load analysis cache
+[INFO] Load analysis cache (126 bytes) | time=39ms
+[INFO] Load project repositories
+[INFO] Load project repositories (done) | time=64ms
+[INFO] Indexing files...
+[INFO] Project configuration:
+[INFO] Load active rules (done) | time=2912ms
+[INFO] Load analysis cache
+[INFO] Load analysis cache (127 bytes) | time=33ms
+[INFO] Load project repositories
+[INFO] Load project repositories (done) | time=49ms
+[INFO] Indexing files...
+[INFO] Project configuration:
+[INFO] Load active rules (done) | time=2851ms
+[INFO] Load analysis cache
+[INFO] Load analysis cache (128 bytes) | time=36ms
+[INFO] Load project repositories
+[INFO] Load project repositories (done) | time=51ms
+[INFO] Indexing files...
+[INFO] Project configuration:
+[INFO] 3 files indexed
+[INFO] 0 files ignored because of scm ignore settings
+[INFO] Quality profile for java: Sonar way
+[INFO] Quality profile for xml: Sonar way
+[INFO] ------------- Run sensors on module Hello World
+[INFO] 3 files indexed
+[INFO] 0 files ignored because of scm ignore settings
+[INFO] Quality profile for java: Sonar way
+[INFO] Quality profile for xml: Sonar way
+[INFO] ------------- Run sensors on module Hello DevOps
+[INFO] 3 files indexed
+[INFO] 0 files ignored because of scm ignore settings
+[INFO] Quality profile for java: Sonar way
+[INFO] Quality profile for xml: Sonar way
+[INFO] ------------- Run sensors on module Hello Jenkins
+[INFO] Load metrics repository
+[INFO] Load metrics repository (done) | time=68ms
+[INFO] Load metrics repository
+[INFO] Load metrics repository (done) | time=50ms
+[INFO] Load metrics repository
+[INFO] Load metrics repository (done) | time=62ms
+[INFO] Sensor JavaSensor [java]
+[INFO] Configured Java source version (sonar.java.source): 17
+[INFO] JavaClasspath initialization
+[INFO] JavaClasspath initialization (done) | time=31ms
+[INFO] Sensor JavaSensor [java]
+[INFO] Configured Java source version (sonar.java.source): 17
+[INFO] JavaClasspath initialization
+[INFO] JavaClasspath initialization (done) | time=12ms
+[INFO] JavaTestClasspath initialization
+[INFO] JavaTestClasspath initialization (done) | time=2ms
+[INFO] Server-side caching is enabled. The Java analyzer will not try to leverage data from a previous analysis.
+[INFO] Using ECJ batch to parse 1 Main java source files with batch size 209 KB.
+[INFO] JavaTestClasspath initialization
+[INFO] JavaTestClasspath initialization (done) | time=3ms
+[INFO] Server-side caching is enabled. The Java analyzer will not try to leverage data from a previous analysis.
+[INFO] Using ECJ batch to parse 1 Main java source files with batch size 209 KB.
+[INFO] Sensor JavaSensor [java]
+[INFO] Configured Java source version (sonar.java.source): 17
+[INFO] JavaClasspath initialization
+[INFO] JavaClasspath initialization (done) | time=18ms
+[INFO] JavaTestClasspath initialization
+[INFO] JavaTestClasspath initialization (done) | time=7ms
+[INFO] Server-side caching is enabled. The Java analyzer will not try to leverage data from a previous analysis.
+[INFO] Using ECJ batch to parse 1 Main java source files with batch size 209 KB.
+[INFO] Starting batch processing.
+[INFO] Starting batch processing.
+[INFO] Starting batch processing.
+[INFO] The Java analyzer cannot skip unchanged files in this context. A full analysis is performed for all files.
+[INFO] The Java analyzer cannot skip unchanged files in this context. A full analysis is performed for all files.
+[INFO] The Java analyzer cannot skip unchanged files in this context. A full analysis is performed for all files.
+[INFO] 100% analyzed
+[INFO] Batch processing: Done.
+[INFO] Did not optimize analysis for any files, performed a full analysis for all 1 files.
+[INFO] Using ECJ batch to parse 1 Test java source files with batch size 209 KB.
+[INFO] Starting batch processing.
+[INFO] 100% analyzed
+[INFO] Batch processing: Done.
+[INFO] Did not optimize analysis for any files, performed a full analysis for all 1 files.
+[INFO] No "Generated" source files to scan.
+[INFO] Sensor JavaSensor [java] (done) | time=2641ms
+[INFO] Sensor JaCoCo XML Report Importer [jacoco]
+[INFO] 'sonar.coverage.jacoco.xmlReportPaths' is not defined. Using default locations: target/site/jacoco/jacoco.xml,target/site/jacoco-it/jacoco.xml,build/reports/jacoco/test/jacocoTestReport.xml
+[INFO] No report imported, no coverage information will be imported by JaCoCo XML Report Importer
+[INFO] Sensor JaCoCo XML Report Importer [jacoco] (done) | time=6ms
+[INFO] Sensor CSS Rules [javascript]
+[INFO] No CSS, PHP, HTML or VueJS files are found in the project. CSS analysis is skipped.
+[INFO] Sensor CSS Rules [javascript] (done) | time=2ms
+[INFO] Sensor C# Project Type Information [csharp]
+[INFO] Sensor C# Project Type Information [csharp] (done) | time=2ms
+[INFO] Sensor C# Analysis Log [csharp]
+[INFO] Sensor C# Analysis Log [csharp] (done) | time=37ms
+[INFO] Sensor C# Properties [csharp]
+[INFO] Sensor C# Properties [csharp] (done) | time=0ms
+[INFO] Sensor SurefireSensor [java]
+[INFO] parsing [/home/jenkins/workspace/multi_lesson27/lesson26/hello-world/target/surefire-reports]
+[INFO] 100% analyzed
+[INFO] Batch processing: Done.
+[INFO] Did not optimize analysis for any files, performed a full analysis for all 1 files.
+[INFO] Using ECJ batch to parse 1 Test java source files with batch size 209 KB.
+[INFO] Starting batch processing.
+[INFO] Sensor SurefireSensor [java] (done) | time=212ms
+[INFO] Sensor HTML [web]
+[INFO] Sensor HTML [web] (done) | time=22ms
+[INFO] Sensor XML Sensor [xml]
+[INFO] 1 source file to be analyzed
+[INFO] 100% analyzed
+[INFO] Batch processing: Done.
+[INFO] Did not optimize analysis for any files, performed a full analysis for all 1 files.
+[INFO] Using ECJ batch to parse 1 Test java source files with batch size 209 KB.
+[INFO] Starting batch processing.
+[INFO] 100% analyzed
+[INFO] Batch processing: Done.
+[INFO] Did not optimize analysis for any files, performed a full analysis for all 1 files.
+[INFO] No "Generated" source files to scan.
+[INFO] Sensor JavaSensor [java] (done) | time=2833ms
+[INFO] Sensor JaCoCo XML Report Importer [jacoco]
+[INFO] 'sonar.coverage.jacoco.xmlReportPaths' is not defined. Using default locations: target/site/jacoco/jacoco.xml,target/site/jacoco-it/jacoco.xml,build/reports/jacoco/test/jacocoTestReport.xml
+[INFO] No report imported, no coverage information will be imported by JaCoCo XML Report Importer
+[INFO] Sensor JaCoCo XML Report Importer [jacoco] (done) | time=5ms
+[INFO] Sensor CSS Rules [javascript]
+[INFO] No CSS, PHP, HTML or VueJS files are found in the project. CSS analysis is skipped.
+[INFO] Sensor CSS Rules [javascript] (done) | time=6ms
+[INFO] Sensor C# Project Type Information [csharp]
+[INFO] Sensor C# Project Type Information [csharp] (done) | time=2ms
+[INFO] Sensor C# Analysis Log [csharp]
+[INFO] 100% analyzed
+[INFO] Batch processing: Done.
+[INFO] Did not optimize analysis for any files, performed a full analysis for all 1 files.
+[INFO] No "Generated" source files to scan.
+[INFO] Sensor JavaSensor [java] (done) | time=2810ms
+[INFO] Sensor JaCoCo XML Report Importer [jacoco]
+[INFO] 'sonar.coverage.jacoco.xmlReportPaths' is not defined. Using default locations: target/site/jacoco/jacoco.xml,target/site/jacoco-it/jacoco.xml,build/reports/jacoco/test/jacocoTestReport.xml
+[INFO] No report imported, no coverage information will be imported by JaCoCo XML Report Importer
+[INFO] Sensor JaCoCo XML Report Importer [jacoco] (done) | time=17ms
+[INFO] Sensor CSS Rules [javascript]
+[INFO] No CSS, PHP, HTML or VueJS files are found in the project. CSS analysis is skipped.
+[INFO] Sensor CSS Rules [javascript] (done) | time=2ms
+[INFO] Sensor C# Project Type Information [csharp]
+[INFO] Sensor C# Project Type Information [csharp] (done) | time=1ms
+[INFO] Sensor C# Analysis Log [csharp]
+[INFO] Sensor C# Analysis Log [csharp] (done) | time=62ms
+[INFO] Sensor C# Properties [csharp]
+[INFO] Sensor C# Properties [csharp] (done) | time=1ms
+[INFO] Sensor SurefireSensor [java]
+[INFO] parsing [/home/jenkins/workspace/multi_lesson27/lesson26/hello-jenkins/target/surefire-reports]
+[INFO] Sensor C# Analysis Log [csharp] (done) | time=33ms
+[INFO] Sensor C# Properties [csharp]
+[INFO] Sensor C# Properties [csharp] (done) | time=0ms
+[INFO] Sensor SurefireSensor [java]
+[INFO] parsing [/home/jenkins/workspace/multi_lesson27/lesson26/hello-devops/target/surefire-reports]
+[INFO] Sensor SurefireSensor [java] (done) | time=284ms
+[INFO] Sensor HTML [web]
+[INFO] Sensor HTML [web] (done) | time=6ms
+[INFO] Sensor XML Sensor [xml]
+[INFO] 1 source file to be analyzed
+[INFO] 1/1 source file has been analyzed
+[INFO] Sensor XML Sensor [xml] (done) | time=641ms
+[INFO] Sensor TextAndSecretsSensor [text]
+[INFO] 3 source files to be analyzed
+[INFO] 3/3 source files have been analyzed
+[INFO] Sensor TextAndSecretsSensor [text] (done) | time=44ms
+[INFO] Sensor VB.NET Project Type Information [vbnet]
+[INFO] Sensor VB.NET Project Type Information [vbnet] (done) | time=6ms
+[INFO] Sensor VB.NET Analysis Log [vbnet]
+[INFO] Sensor VB.NET Analysis Log [vbnet] (done) | time=35ms
+[INFO] Sensor VB.NET Properties [vbnet]
+[INFO] Sensor VB.NET Properties [vbnet] (done) | time=1ms
+[INFO] Sensor SurefireSensor [java] (done) | time=327ms
+[INFO] Sensor HTML [web]
+[INFO] Sensor HTML [web] (done) | time=9ms
+[INFO] Sensor XML Sensor [xml]
+[INFO] 1 source file to be analyzed
+[INFO] Sensor IaC Docker Sensor [iac]
+[INFO] 0 source files to be analyzed
+[INFO] 0/0 source files have been analyzed
+[INFO] Sensor IaC Docker Sensor [iac] (done) | time=214ms
+[INFO] ------------- Run sensors on project
+[INFO] 1/1 source file has been analyzed
+[INFO] Sensor XML Sensor [xml] (done) | time=421ms
+[INFO] Sensor TextAndSecretsSensor [text]
+[INFO] 3 source files to be analyzed
+[INFO] 3/3 source files have been analyzed
+[INFO] Sensor TextAndSecretsSensor [text] (done) | time=56ms
+[INFO] Sensor VB.NET Project Type Information [vbnet]
+[INFO] Sensor VB.NET Project Type Information [vbnet] (done) | time=1ms
+[INFO] Sensor VB.NET Analysis Log [vbnet]
+[INFO] Sensor VB.NET Analysis Log [vbnet] (done) | time=35ms
+[INFO] Sensor VB.NET Properties [vbnet]
+[INFO] Sensor VB.NET Properties [vbnet] (done) | time=0ms
+[INFO] Sensor IaC Docker Sensor [iac]
+[INFO] 0 source files to be analyzed
+[INFO] Sensor Analysis Warnings import [csharp]
+[INFO] Sensor Analysis Warnings import [csharp] (done) | time=1ms
+[INFO] Sensor Zero Coverage Sensor
+[INFO] Sensor Zero Coverage Sensor (done) | time=10ms
+[INFO] Sensor Java CPD Block Indexer
+[INFO] Sensor Java CPD Block Indexer (done) | time=41ms
+[INFO] CPD Executor 1 file had no CPD blocks
+[INFO] CPD Executor Calculating CPD for 0 files
+[INFO] CPD Executor CPD calculation finished (done) | time=0ms
+[INFO] 1/1 source file has been analyzed
+[INFO] Sensor XML Sensor [xml] (done) | time=766ms
+[INFO] Sensor TextAndSecretsSensor [text]
+[INFO] 0/0 source files have been analyzed
+[INFO] Sensor IaC Docker Sensor [iac] (done) | time=152ms
+[INFO] ------------- Run sensors on project
+[INFO] Sensor Analysis Warnings import [csharp]
+[INFO] Sensor Analysis Warnings import [csharp] (done) | time=4ms
+[INFO] Sensor Zero Coverage Sensor
+[INFO] Sensor Zero Coverage Sensor (done) | time=14ms
+[INFO] Sensor Java CPD Block Indexer
+[INFO] Analysis report generated in 203ms, dir size=127.5 kB
+[INFO] Analysis report compressed in 57ms, zip size=19.9 kB
+[INFO] 3 source files to be analyzed
+[INFO] 3/3 source files have been analyzed
+[INFO] Sensor TextAndSecretsSensor [text] (done) | time=60ms
+[INFO] Sensor VB.NET Project Type Information [vbnet]
+[INFO] Sensor VB.NET Project Type Information [vbnet] (done) | time=2ms
+[INFO] Sensor VB.NET Analysis Log [vbnet]
+[INFO] Sensor VB.NET Analysis Log [vbnet] (done) | time=70ms
+[INFO] Sensor VB.NET Properties [vbnet]
+[INFO] Sensor VB.NET Properties [vbnet] (done) | time=0ms
+[INFO] Sensor IaC Docker Sensor [iac]
+[INFO] 0 source files to be analyzed
+[INFO] Sensor Java CPD Block Indexer (done) | time=30ms
+[INFO] CPD Executor 1 file had no CPD blocks
+[INFO] CPD Executor Calculating CPD for 0 files
+[INFO] CPD Executor CPD calculation finished (done) | time=0ms
+[INFO] Analysis report uploaded in 98ms
+[INFO] ANALYSIS SUCCESSFUL, you can find the results at: http://192.168.1.14:9000/dashboard?id=lesson27-hello-world
+[INFO] Note that you will be able to access the updated dashboard once the server has processed the submitted analysis report
+[INFO] More about the report processing at http://192.168.1.14:9000/api/ce/task?id=AZvOmdlltGuX_20gY2wG
+[INFO] Analysis total time: 15.721 s
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  20.606 s
+[INFO] Finished at: 2026-01-18T00:55:47Z
+[INFO] ------------------------------------------------------------------------
+[INFO] 0/0 source files have been analyzed
+[INFO] Sensor IaC Docker Sensor [iac] (done) | time=259ms
+[INFO] ------------- Run sensors on project
+[INFO] Analysis report generated in 233ms, dir size=127.5 kB
+[INFO] Analysis report compressed in 57ms, zip size=19.9 kB
+[INFO] Analysis report uploaded in 34ms
+[INFO] ANALYSIS SUCCESSFUL, you can find the results at: http://192.168.1.14:9000/dashboard?id=lesson27-hello-jenkins
+[INFO] Note that you will be able to access the updated dashboard once the server has processed the submitted analysis report
+[INFO] More about the report processing at http://192.168.1.14:9000/api/ce/task?id=AZvOmdrgtGuX_20gY2wH
+[INFO] Analysis total time: 15.554 s
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  20.611 s
+[INFO] Finished at: 2026-01-18T00:55:48Z
+[INFO] ------------------------------------------------------------------------
+[INFO] Sensor Analysis Warnings import [csharp]
+[INFO] Sensor Analysis Warnings import [csharp] (done) | time=2ms
+[INFO] Sensor Zero Coverage Sensor
+[INFO] Sensor Zero Coverage Sensor (done) | time=13ms
+[INFO] Sensor Java CPD Block Indexer
+[INFO] Sensor Java CPD Block Indexer (done) | time=22ms
+[INFO] CPD Executor 1 file had no CPD blocks
+[INFO] CPD Executor Calculating CPD for 0 files
+[INFO] CPD Executor CPD calculation finished (done) | time=0ms
+[INFO] Analysis report generated in 135ms, dir size=127.5 kB
+[Pipeline] }
+[Pipeline] // withSonarQubeEnv
+[Pipeline] sleep
+Sleeping for 30 sec
+[INFO] Analysis report compressed in 55ms, zip size=19.9 kB
+[INFO] Analysis report uploaded in 34ms
+[INFO] ANALYSIS SUCCESSFUL, you can find the results at: http://192.168.1.14:9000/dashboard?id=lesson27-hello-devops
+[INFO] Note that you will be able to access the updated dashboard once the server has processed the submitted analysis report
+[INFO] More about the report processing at http://192.168.1.14:9000/api/ce/task?id=AZvOmdw-tGuX_20gY2wI
+[INFO] Analysis total time: 16.352 s
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  21.093 s
+[INFO] Finished at: 2026-01-18T00:55:48Z
+[INFO] ------------------------------------------------------------------------
+[Pipeline] }
+[Pipeline] // withSonarQubeEnv
+[Pipeline] sleep
+Sleeping for 30 sec
+[Pipeline] }
+[Pipeline] // withSonarQubeEnv
+[Pipeline] sleep
+Sleeping for 30 sec
+[Pipeline] timeout
+Timeout set to expire in 3 min 0 sec
+[Pipeline] {
+[Pipeline] waitForQualityGate
+Checking status of SonarQube task 'AZvOmdw-tGuX_20gY2wI' on server 'SonarQube'
+SonarQube task 'AZvOmdw-tGuX_20gY2wI' status is 'SUCCESS'
+SonarQube task 'AZvOmdw-tGuX_20gY2wI' completed. Quality gate is 'OK'
+[Pipeline] }
+[Pipeline] // timeout
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // dir
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] timeout
+Timeout set to expire in 3 min 0 sec
+[Pipeline] {
+[Pipeline] waitForQualityGate
+Checking status of SonarQube task 'AZvOmdw-tGuX_20gY2wI' on server 'SonarQube'
+SonarQube task 'AZvOmdw-tGuX_20gY2wI' status is 'SUCCESS'
+SonarQube task 'AZvOmdw-tGuX_20gY2wI' completed. Quality gate is 'OK'
+[Pipeline] }
+[Pipeline] // timeout
+[Pipeline] }
+[Pipeline] timeout
+Timeout set to expire in 3 min 0 sec
+[Pipeline] {
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] waitForQualityGate
+Checking status of SonarQube task 'AZvOmdw-tGuX_20gY2wI' on server 'SonarQube'
+SonarQube task 'AZvOmdw-tGuX_20gY2wI' status is 'SUCCESS'
+SonarQube task 'AZvOmdw-tGuX_20gY2wI' completed. Quality gate is 'OK'
+[Pipeline] }
+[Pipeline] // dir
+[Pipeline] // timeout
+[Pipeline] }
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] // dir
+[Pipeline] }
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // parallel
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Package All)
+[Pipeline] tool
+[Pipeline] envVarsForTool
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] parallel
+[Pipeline] { (Branch: hello-world)
+[Pipeline] { (Branch: hello-jenkins)
+[Pipeline] { (Branch: hello-devops)
+[Pipeline] sh
+[Pipeline] sh
+[Pipeline] sh
++ mvn package -f lesson26/hello-world/pom.xml -DskipTests
++ mvn package -f lesson26/hello-jenkins/pom.xml -DskipTests
++ mvn package -f lesson26/hello-devops/pom.xml -DskipTests
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] -------------------< com.mycompany.app:hello-world >--------------------
+[INFO] Building hello-world 1.0-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ------------------< com.mycompany.app:hello-jenkins >-------------------
+[INFO] Building hello-jenkins 1.0-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] -------------------< com.mycompany.app:hello-devops >-------------------
+[INFO] Building hello-devops 1.0-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ hello-world ---
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ hello-jenkins ---
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ hello-devops ---
+[WARNING] Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+[INFO] skip non existing resourceDirectory /home/jenkins/workspace/multi_lesson27/lesson26/hello-world/src/main/resources
+[INFO] 
+[INFO] --- compiler:3.13.0:compile (default-compile) @ hello-world ---
+[WARNING] Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+[INFO] skip non existing resourceDirectory /home/jenkins/workspace/multi_lesson27/lesson26/hello-jenkins/src/main/resources
+[INFO] 
+[INFO] --- compiler:3.13.0:compile (default-compile) @ hello-jenkins ---
+[WARNING] Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+[INFO] skip non existing resourceDirectory /home/jenkins/workspace/multi_lesson27/lesson26/hello-devops/src/main/resources
+[INFO] 
+[INFO] --- compiler:3.13.0:compile (default-compile) @ hello-devops ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ hello-world ---
+[WARNING] Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+[INFO] skip non existing resourceDirectory /home/jenkins/workspace/multi_lesson27/lesson26/hello-world/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.13.0:testCompile (default-testCompile) @ hello-world ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- surefire:3.2.5:test (default-test) @ hello-world ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ hello-jenkins ---
+[WARNING] Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+[INFO] skip non existing resourceDirectory /home/jenkins/workspace/multi_lesson27/lesson26/hello-jenkins/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.13.0:testCompile (default-testCompile) @ hello-jenkins ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- surefire:3.2.5:test (default-test) @ hello-jenkins ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ hello-devops ---
+[WARNING] Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+[INFO] skip non existing resourceDirectory /home/jenkins/workspace/multi_lesson27/lesson26/hello-devops/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.13.0:testCompile (default-testCompile) @ hello-devops ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- surefire:3.2.5:test (default-test) @ hello-devops ---
+[INFO] Tests are skipped.
+[INFO] 
+[INFO] --- jar:3.4.1:jar (default-jar) @ hello-world ---
+[INFO] Tests are skipped.
+[INFO] 
+[INFO] --- jar:3.4.1:jar (default-jar) @ hello-jenkins ---
+[INFO] Tests are skipped.
+[INFO] 
+[INFO] --- jar:3.4.1:jar (default-jar) @ hello-devops ---
+[INFO] Building jar: /home/jenkins/workspace/multi_lesson27/lesson26/hello-world/target/hello-world-1.0-SNAPSHOT.jar
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  3.986 s
+[INFO] Finished at: 2026-01-18T00:56:27Z
+[INFO] ------------------------------------------------------------------------
+[Pipeline] }
+[INFO] Building jar: /home/jenkins/workspace/multi_lesson27/lesson26/hello-devops/target/hello-devops-1.0-SNAPSHOT.jar
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  4.113 s
+[INFO] Finished at: 2026-01-18T00:56:27Z
+[INFO] ------------------------------------------------------------------------
+[INFO] Building jar: /home/jenkins/workspace/multi_lesson27/lesson26/hello-jenkins/target/hello-jenkins-1.0-SNAPSHOT.jar
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  4.260 s
+[INFO] Finished at: 2026-01-18T00:56:28Z
+[INFO] ------------------------------------------------------------------------
+[Pipeline] }
+[Pipeline] }
+[Pipeline] // parallel
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Declarative: Post Actions)
+[Pipeline] junit
+Recording test results
+[Checks API] No suitable checks publisher found.
+[Pipeline] archiveArtifacts
+Archiving artifacts
+[Pipeline] archiveArtifacts
+Archiving artifacts
+[Pipeline] echo
+BUILD SUCCESS! All Quality Gates PASSED!
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+
+GitHub has been notified of this commit’s build result
+
+Finished: SUCCESS
