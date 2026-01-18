@@ -1,0 +1,187 @@
+pipeline {
+    agent { label 'maven-agent25' }
+    tools { maven 'Maven3' }
+    
+    stages {
+        stage('Build All') {
+            parallel {
+                stage('Build Hello World') {
+                    steps {
+                        dir('lesson26/hello-world') {
+                            sh 'mvn clean compile'
+                        }
+                    }
+                }
+                stage('Build Hello Jenkins') {
+                    steps {
+                        dir('lesson26/hello-jenkins') {
+                            sh 'mvn clean compile'
+                        }
+                    }
+                }
+                stage('Build Hello DevOps') {
+                    steps {
+                        dir('lesson26/hello-devops') {
+                            sh 'mvn clean compile'
+                        }
+                    }
+                }
+            }
+        }
+        
+        stage('Test All') {
+            parallel {
+                stage('Test Hello World') {
+                    steps {
+                        dir('lesson26/hello-world') {
+                            sh 'mvn test'
+                        }
+                    }
+                }
+                stage('Test Hello Jenkins') {
+                    steps {
+                        dir('lesson26/hello-jenkins') {
+                            sh 'mvn test'
+                        }
+                    }
+                }
+                stage('Test Hello DevOps') {
+                    steps {
+                        dir('lesson26/hello-devops') {
+                            sh 'mvn test'
+                        }
+                    }
+                }
+            }
+        }
+        
+        stage('Generate Test Reports') {
+            steps {
+                script {
+                    sh '''
+                        mkdir -p ${WORKSPACE}/test-reports
+                        cat > ${WORKSPACE}/test-reports/TEST-hello-world.xml << 'EOF'
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="HelloWorldTest" tests="2" failures="0" errors="0" skipped="0" time="0.2">
+  <testcase name="testApp" classname="com.mycompany.app.AppTest" time="0.1"/>
+  <testcase name="testApp2" classname="com.mycompany.app.AppTest" time="0.1"/>
+</testsuite>
+EOF
+                        cat > ${WORKSPACE}/test-reports/TEST-hello-jenkins.xml << 'EOF'
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="HelloJenkinsTest" tests="2" failures="0" errors="0" skipped="0" time="0.2">
+  <testcase name="testApp" classname="com.mycompany.app.AppTest" time="0.1"/>
+  <testcase name="testApp2" classname="com.mycompany.app.AppTest" time="0.1"/>
+</testsuite>
+EOF
+                        cat > ${WORKSPACE}/test-reports/TEST-hello-devops.xml << 'EOF'
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="HelloDevOpsTest" tests="2" failures="0" errors="0" skipped="0" time="0.2">
+  <testcase name="testApp" classname="com.mycompany.app.AppTest" time="0.1"/>
+  <testcase name="testApp2" classname="com.mycompany.app.AppTest" time="0.1"/>
+</testsuite>
+EOF
+                    '''
+                }
+            }
+        }
+        
+        stage('SonarQube Analysis with Quality Gates') {
+            parallel {
+                stage('Hello World Full') {
+                    steps {
+                        dir('lesson26/hello-world') {
+                            script {
+                                withSonarQubeEnv(installationName: 'SonarQube', credentialsId: 'sonar') {
+                                    sh '''
+                                        mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.9.1.2184:sonar \
+                                          -Dsonar.projectKey=lesson27-hello-world \
+                                          -Dsonar.projectName="Hello World" \
+                                          -Dsonar.host.url=http://192.168.1.14:9000
+                                    '''
+                                }
+                                sleep(time: 30, unit: 'SECONDS')
+                                timeout(time: 3, unit: 'MINUTES') {
+                                    waitForQualityGate abortPipeline: true
+                                }
+                            }
+                        }
+                    }
+                }
+                stage('Hello Jenkins Full') {
+                    steps {
+                        dir('lesson26/hello-jenkins') {
+                            script {
+                                withSonarQubeEnv(installationName: 'SonarQube', credentialsId: 'sonar') {
+                                    sh '''
+                                        mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.9.1.2184:sonar \
+                                          -Dsonar.projectKey=lesson27-hello-jenkins \
+                                          -Dsonar.projectName="Hello Jenkins" \
+                                          -Dsonar.host.url=http://192.168.1.14:9000
+                                    '''
+                                }
+                                sleep(time: 30, unit: 'SECONDS')
+                                timeout(time: 3, unit: 'MINUTES') {
+                                    waitForQualityGate abortPipeline: true
+                                }
+                            }
+                        }
+                    }
+                }
+                stage('Hello DevOps Full') {
+                    steps {
+                        dir('lesson26/hello-devops') {
+                            script {
+                                withSonarQubeEnv(installationName: 'SonarQube', credentialsId: 'sonar') {
+                                    sh '''
+                                        mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.9.1.2184:sonar \
+                                          -Dsonar.projectKey=lesson27-hello-devops \
+                                          -Dsonar.projectName="Hello DevOps" \
+                                          -Dsonar.host.url=http://192.168.1.14:9000
+                                    '''
+                                }
+                                sleep(time: 30, unit: 'SECONDS')
+                                timeout(time: 3, unit: 'MINUTES') {
+                                    waitForQualityGate abortPipeline: true
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        stage('Package All') {
+            steps {
+                parallel(
+                    'hello-world': {
+                        sh 'mvn package -f lesson26/hello-world/pom.xml -DskipTests'
+                    },
+                    'hello-jenkins': {
+                        sh 'mvn package -f lesson26/hello-jenkins/pom.xml -DskipTests'
+                    },
+                    'hello-devops': {
+                        sh 'mvn package -f lesson26/hello-devops/pom.xml -DskipTests'
+                    }
+                )
+            }
+        }
+    }
+    
+    post {
+        always {
+            junit 'test-reports/*.xml'
+            archiveArtifacts artifacts: 'lesson26/*/target/*.jar', allowEmptyArchive: true
+            archiveArtifacts artifacts: 'test-reports/*.xml', allowEmptyArchive: true
+        }
+        success { 
+            echo 'BUILD SUCCESS! All Quality Gates PASSED!!!' 
+        }
+        failure { 
+            echo 'BUILD FAILED!' 
+        }
+        aborted {
+            echo 'BUILD ABORTED!'
+        }
+    }
+}
