@@ -55,78 +55,46 @@ pipeline {
             }
         }
         
-        stage('SonarQube Analysis with Quality Gate') {
+        stage('SonarQube Analysis') {
             parallel {
-                stage('Hello World Analysis & Gate') {
+                stage('Hello World Analysis') {
                     steps {
                         dir('lesson26/hello-world') {
-                            script {
-                                // Шаг 1: Анализ
-                                withSonarQubeEnv(installationName: 'SonarQube', credentialsId: 'sonar') {
-                                    sh '''
-                                        mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.9.1.2184:sonar \
-                                          -Dsonar.projectKey=lesson27-hello-world \
-                                          -Dsonar.projectName="Hello World" \
-                                          -Dsonar.host.url=http://192.168.1.14:9000
-                                    '''
-                                }
-                                
-                                // Шаг 2: Ожидание обработки
-                                echo "Waiting 30 seconds for Hello World analysis processing..."
-                                sleep(time: 30, unit: 'SECONDS')
-                                
-                                // Шаг 3: Quality Gate
-                                timeout(time: 5, unit: 'MINUTES') {
-                                    waitForQualityGate abortPipeline: true
-                                }
+                            withSonarQubeEnv(installationName: 'SonarQube', credentialsId: 'sonar') {
+                                sh '''
+                                    mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.9.1.2184:sonar \
+                                      -Dsonar.projectKey=lesson27-hello-world \
+                                      -Dsonar.projectName="Hello World" \
+                                      -Dsonar.host.url=http://192.168.1.14:9000
+                                '''
                             }
                         }
                     }
                 }
-                
-                stage('Hello Jenkins Analysis & Gate') {
+                stage('Hello Jenkins Analysis') {
                     steps {
                         dir('lesson26/hello-jenkins') {
-                            script {
-                                withSonarQubeEnv(installationName: 'SonarQube', credentialsId: 'sonar') {
-                                    sh '''
-                                        mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.9.1.2184:sonar \
-                                          -Dsonar.projectKey=lesson27-hello-jenkins \
-                                          -Dsonar.projectName="Hello Jenkins" \
-                                          -Dsonar.host.url=http://192.168.1.14:9000
-                                    '''
-                                }
-                                
-                                echo "Waiting 30 seconds for Hello Jenkins analysis processing..."
-                                sleep(time: 30, unit: 'SECONDS')
-                                
-                                timeout(time: 5, unit: 'MINUTES') {
-                                    waitForQualityGate abortPipeline: true
-                                }
+                            withSonarQubeEnv(installationName: 'SonarQube', credentialsId: 'sonar') {
+                                sh '''
+                                    mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.9.1.2184:sonar \
+                                      -Dsonar.projectKey=lesson27-hello-jenkins \
+                                      -Dsonar.projectName="Hello Jenkins" \
+                                      -Dsonar.host.url=http://192.168.1.14:9000
+                                '''
                             }
                         }
                     }
                 }
-                
-                stage('Hello DevOps Analysis & Gate') {
+                stage('Hello DevOps Analysis') {
                     steps {
                         dir('lesson26/hello-devops') {
-                            script {
-                                withSonarQubeEnv(installationName: 'SonarQube', credentialsId: 'sonar') {
-                                    sh '''
-                                        mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.9.1.2184:sonar \
-                                          -Dsonar.projectKey=lesson27-hello-devops \
-                                          -Dsonar.projectName="Hello DevOps" \
-                                          -Dsonar.host.url=http://192.168.1.14:9000
-                                    '''
-                                }
-                                
-                                echo "Waiting 30 seconds for Hello DevOps analysis processing..."
-                                sleep(time: 30, unit: 'SECONDS')
-                                
-                                timeout(time: 5, unit: 'MINUTES') {
-                                    waitForQualityGate abortPipeline: true
-                                }
+                            withSonarQubeEnv(installationName: 'SonarQube', credentialsId: 'sonar') {
+                                sh '''
+                                    mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.9.1.2184:sonar \
+                                      -Dsonar.projectKey=lesson27-hello-devops \
+                                      -Dsonar.projectName="Hello DevOps" \
+                                      -Dsonar.host.url=http://192.168.1.14:9000
+                                '''
                             }
                         }
                     }
@@ -134,10 +102,42 @@ pipeline {
             }
         }
         
-        stage('Package All') {
-            when {
-                expression { currentBuild.result == null || currentBuild.result == 'SUCCESS' }
+        stage('Wait for Processing') {
+            steps {
+                echo "Waiting 60 seconds for SonarQube to process all analyses..."
+                sleep(time: 60, unit: 'SECONDS')
             }
+        }
+        
+        stage('Check Quality Gates') {
+            steps {
+                script {
+                    // Проверяем Quality Gates последовательно для каждого проекта
+                    echo "Checking Quality Gate for Hello World..."
+                    dir('lesson26/hello-world') {
+                        timeout(time: 3, unit: 'MINUTES') {
+                            waitForQualityGate abortPipeline: true
+                        }
+                    }
+                    
+                    echo "Checking Quality Gate for Hello Jenkins..."
+                    dir('lesson26/hello-jenkins') {
+                        timeout(time: 3, unit: 'MINUTES') {
+                            waitForQualityGate abortPipeline: true
+                        }
+                    }
+                    
+                    echo "Checking Quality Gate for Hello DevOps..."
+                    dir('lesson26/hello-devops') {
+                        timeout(time: 3, unit: 'MINUTES') {
+                            waitForQualityGate abortPipeline: true
+                        }
+                    }
+                }
+            }
+        }
+        
+        stage('Package All') {
             steps {
                 parallel(
                     'hello-world': {
@@ -156,18 +156,17 @@ pipeline {
     
     post {
         always {
-            // Собираем результаты тестов из всех проектов
-            junit 'lesson26/hello-world/target/surefire-reports/*.xml'
-            junit 'lesson26/hello-jenkins/target/surefire-reports/*.xml'
-            junit 'lesson26/hello-devops/target/surefire-reports/*.xml'
+            // Собираем JUnit отчеты из ВСЕХ проектов
+            junit 'lesson26/hello-*/target/surefire-reports/*.xml'
             
+            // Архивируем артефакты
             archiveArtifacts artifacts: 'lesson26/*/target/*.jar', allowEmptyArchive: true
         }
         success { 
             echo 'lesson27 BUILD SUCCESS! All Quality Gates PASSED!' 
         }
         failure { 
-            echo 'BUILD FAILED! Check Quality Gates in SonarQube!' 
+            echo 'BUILD FAILED! Check logs for details.' 
         }
         aborted {
             echo 'BUILD ABORTED!'
