@@ -175,7 +175,7 @@ EOF
             archiveArtifacts artifacts: 'test-reports/*.xml', allowEmptyArchive: true
         }
         success { 
-            echo 'BUILD SUCCESS! All Quality Gates PASSED!' 
+            echo 'BUILD SUCCESS! All Quality Gates PASSED!!!' 
         }
         failure { 
             echo 'BUILD FAILED!' 
