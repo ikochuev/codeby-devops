@@ -1,0 +1,99 @@
+services:
+  ui:
+    image: ghcr.io/codeby-devops/ui:logging
+    container_name: ui
+    ports:
+      - "9292:9292/tcp"
+    environment:
+      - POST_SERVICE_HOST=post
+      - POST_SERVICE_PORT=5000
+      - COMMENT_SERVICE_HOST=comment
+      - COMMENT_SERVICE_PORT=9292
+    logging:
+      driver: "fluentd"
+      options:
+        fluentd-address: "127.0.0.1:24224"
+        tag: "service.ui"
+    depends_on:
+      - comment
+      - post
+      - fluentd
+    networks:
+      - logging
+
+  post:
+    image: ghcr.io/codeby-devops/post:logging
+    container_name: post
+    environment:
+      - POST_DATABASE_HOST=post_db
+      - POST_DATABASE=posts
+    logging:
+      driver: "fluentd"
+      options:
+        fluentd-address: "127.0.0.1:24224"
+        tag: "service.post"
+    depends_on:
+      - post_db
+      - fluentd
+    ports:
+      - 5000:5000
+    networks:
+      - logging
+
+  comment:
+    image: ghcr.io/codeby-devops/comment:logging
+    container_name: comment
+    environment:
+      - COMMENT_DATABASE_HOST=post_db
+      - COMMENT_DATABASE=comments
+    depends_on:
+      - post_db
+    networks:
+      - logging
+
+  post_db:
+    image: mongo:4.4
+    container_name: post_db
+    volumes:
+      - ./data/post_db:/data/db
+    networks:
+      - logging
+
+  elasticsearch:
+    container_name: elasticsearch
+    image: elasticsearch:6.8.20
+    environment:
+      - discovery.type=single-node
+      - ES_JAVA_OPTS=-Xms512m -Xmx512m
+    ports:
+      - "9200:9200"
+    networks:
+      - logging
+
+  kibana:
+    container_name: kibana
+    image: kibana:6.8.20
+    ports:
+      - "5601:5601"
+    depends_on:
+      - elasticsearch
+    networks:
+      - logging
+
+  fluentd:
+    container_name: fluentd
+    build:
+      context: ./fluentd-image
+    ports:
+      - "24224:24224"
+      - "24224:24224/udp"
+    volumes:
+      - ./fluentd/fluent.conf:/fluentd/etc/fluent.conf
+    depends_on:
+      - elasticsearch
+    networks:
+      - logging
+
+networks:
+  logging:
+    driver: bridge
