@@ -1,0 +1,98 @@
+Script started on 2026-01-22 18:31:10+03:00 [TERM="xterm-256color" TTY="/dev/pts/0" COLUMNS="163" LINES="41"]
+[?2004h]0;user@user-VMware-Virtual-Platform: ~/lesson31[01;32muser@user-VMware-Virtual-Platform[00m:[01;34m~/lesson31[00m$ ls
+[?2004ldocker-compose.yml  lesson31.log
+[?2004h]0;user@user-VMware-Virtual-Platform: ~/lesson31[01;32muser@user-VMware-Virtual-Platform[00m:[01;34m~/lesson31[00m$ [7mdocker-compose up -d[27mdocker-compose up -d
+[?2004lCreating network "lesson31_default" with the default driver
+Creating comment_db ... 
+Creating post_db    ... 
+Creating zipkin     ... 
+[1A[2KCreating zipkin     ... [32mdone[0m[1B[3A[2KCreating comment_db ... [32mdone[0m[3BCreating comment    ... 
+[3A[2KCreating post_db    ... [32mdone[0m[3BCreating post       ... 
+[1A[2KCreating post       ... [32mdone[0m[1B[2A[2KCreating comment    ... [32mdone[0m[2BCreating ui         ... 
+[1A[2KCreating ui         ... [32mdone[0m[1B[?2004h]0;user@user-VMware-Virtual-Platform: ~/lesson31[01;32muser@user-VMware-Virtual-Platform[00m:[01;34m~/lesson31[00m$ [7mdocker-compose ps[27mdocker-compose ps
+[?2004l   Name                Command                State                             Ports                       
+------------------------------------------------------------------------------------------------------------
+comment      puma                          Up             0.0.0.0:9293->9292/tcp,:::9293->9292/tcp          
+comment_db   docker-entrypoint.sh mongod   Up             27017/tcp                                         
+post         python post_app.py            Up             0.0.0.0:5000->5000/tcp,:::5000->5000/tcp          
+post_db      docker-entrypoint.sh mongod   Up             27017/tcp                                         
+ui           puma                          Up             0.0.0.0:9292->9292/tcp,:::9292->9292/tcp          
+zipkin       start-zipkin                  Up (healthy)   9410/tcp, 0.0.0.0:9411->9411/tcp,:::9411->9411/tcp
+[?2004h]0;user@user-VMware-Virtual-Platform: ~/lesson31[01;32muser@user-VMware-Virtual-Platform[00m:[01;34m~/lesson31[00m$ [7mcurl -s -o /dev/null -w "Статус: %{http_code}, Время: %{time_total}с\n" http://localhost:9292/[27m[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Ccurl -s -o /dev/null -w "Статус: %{http_code}, Время: %{time_total}с\n" http://localhost:9292/
+[?2004lСтатус: 200, Время: 0.243020с
+[?2004h]0;user@user-VMware-Virtual-Platform: ~/lesson31[01;32muser@user-VMware-Virtual-Platform[00m:[01;34m~/lesson31[00m$ [7mcurl -s http://localhost:5000/posts | head -100[27mcurl -s http://localhost:5000/posts | head -100
+[?2004lInternal Server Error[?2004h]0;user@user-VMware-Virtual-Platform: ~/lesson31[01;32muser@user-VMware-Virtual-Platform[00m:[01;34m~/lesson31[00m$ [K]0;user@user-VMware-Virtual-Platform: ~/lesson31[01;32muser@user-VMware-Virtual-Platform[00m:[01;34m~/lesson31[00m$ [K]0;user@user-VMware-Virtual-Platform: ~/lesson31[01;32muser@user-VMware-Virtual-Platform[00m:[01;34m~/lesson31[00m$ [K]0;user@user-VMware-Virtual-Platform: ~/lesson31[01;32muser@user-VMware-Virtual-Platform[00m:[01;34m~/lesson31[00m$ [7mdocker-compose exec post_db mongo[27mdocker-compose exec post_db mongo
+[?2004lMongoDB shell version v4.4.30
+connecting to: mongodb://127.0.0.1:27017/?compressors=disabled&gssapiServiceName=mongodb
+Implicit session: session { "id" : UUID("b6f41e00-6cbb-4c70-a584-e65135a936e6") }
+MongoDB server version: 4.4.30
+Welcome to the MongoDB shell.
+For interactive help, type "help".
+For more comprehensive documentation, see
+	https://docs.mongodb.com/
+Questions? Try the MongoDB Developer Community Forums
+	https://community.mongodb.com
+---
+The server generated these startup warnings when booting: 
+        2026-01-22T15:31:25.271+00:00: Using the XFS filesystem is strongly recommended with the WiredTiger storage engine. See http://dochub.mongodb.org/core/prodnotes-filesystem
+        2026-01-22T15:31:26.223+00:00: Access control is not enabled for the database. Read and write access to data and configuration is unrestricted
+        2026-01-22T15:31:26.224+00:00: Soft rlimits too low
+        2026-01-22T15:31:26.224+00:00:         currentValue: 1024
+        2026-01-22T15:31:26.224+00:00:         recommendedMinimum: 64000
+---
+> use posts[3G[Juse posts[12G
+switched to db posts
+> db.posts.getIndexes()[3G[Jdb.posts.getIndexes()[24G
+[ ]
+> S[3G[J[3Gexit[3G[Jexit[7G
+bye
+[?2004h]0;user@user-VMware-Virtual-Platform: ~/lesson31[01;32muser@user-VMware-Virtual-Platform[00m:[01;34m~/lesson31[00m$ [7mtime curl -s -o /dev/null -w "HTTP Status: %{http_code}\n" http://localhost:5000/healthcheck[27m[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Ctime curl -s -o /dev/null -w "HTTP Status: %{http_code}\n" http://localhost:5000/healthcheck
+[?2004lHTTP Status: 200
+
+real	0m0.043s
+user	0m0.002s
+sys	0m0.030s
+[?2004h]0;user@user-VMware-Virtual-Platform: ~/lesson31[01;32muser@user-VMware-Virtual-Platform[00m:[01;34m~/lesson31[00m$ [7mtime curl -s -o /dev/null -w "HTTP Status: %{http_code}\n" http://localhost:5000/healthcheck[27m[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Ctime curl -s -o /dev/null -w "HTTP Status: %{http_code}\n" http://localhost:5000/healthcheck
+[?2004lHTTP Status: 200
+
+real	0m0.045s
+user	0m0.003s
+sys	0m0.030s
+[?2004h]0;user@user-VMware-Virtual-Platform: ~/lesson31[01;32muser@user-VMware-Virtual-Platform[00m:[01;34m~/lesson31[00m$ [7mtime curl -s -o /dev/null -w "HTTP Status: %{http_code}\n" http://localhost:5000/healthcheck[27m[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Ctime curl -s -o /dev/null -w "HTTP Status: %{http_code}\n" http://localhost:5000/healthcheck
+[?2004lHTTP Status: 200
+
+real	0m0.047s
+user	0m0.002s
+sys	0m0.035s
+[?2004h]0;user@user-VMware-Virtual-Platform: ~/lesson31[01;32muser@user-VMware-Virtual-Platform[00m:[01;34m~/lesson31[00m$ [7mcurl -s "http://localhost:9411/api/v2/trace/b892bc2cf9d01c3c" | jq .[27m[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Ccurl -s "http://localhost:9411/api/v2/trace/b892bc2cf9d01c3c" | jq .
+[?2004l[1;39m[
+  [1;39m{
+    [0m[1;34m"traceId"[0m[1;39m: [0m[0;32m"b892bc2cf9d01c3c"[0m[1;39m,
+    [0m[1;34m"id"[0m[1;39m: [0m[0;32m"b892bc2cf9d01c3c"[0m[1;39m,
+    [0m[1;34m"kind"[0m[1;39m: [0m[0;32m"CLIENT"[0m[1;39m,
+    [0m[1;34m"name"[0m[1;39m: [0m[0;32m"get"[0m[1;39m,
+    [0m[1;34m"timestamp"[0m[1;39m: [0m[0;39m1769096172983456[0m[1;39m,
+    [0m[1;34m"duration"[0m[1;39m: [0m[0;39m1387120[0m[1;39m,
+    [0m[1;34m"localEndpoint"[0m[1;39m: [0m[1;39m{
+      [0m[1;34m"serviceName"[0m[1;39m: [0m[0;32m"ui_app"[0m[1;39m,
+      [0m[1;34m"ipv4"[0m[1;39m: [0m[0;32m"172.18.0.7"[0m[1;39m,
+      [0m[1;34m"port"[0m[1;39m: [0m[0;39m9292[0m[1;39m
+    [1;39m}[0m[1;39m,
+    [0m[1;34m"remoteEndpoint"[0m[1;39m: [0m[1;39m{
+      [0m[1;34m"serviceName"[0m[1;39m: [0m[0;32m"post"[0m[1;39m,
+      [0m[1;34m"ipv4"[0m[1;39m: [0m[0;32m"172.18.0.5"[0m[1;39m,
+      [0m[1;34m"port"[0m[1;39m: [0m[0;39m5000[0m[1;39m
+    [1;39m}[0m[1;39m,
+    [0m[1;34m"tags"[0m[1;39m: [0m[1;39m{
+      [0m[1;34m"http.path"[0m[1;39m: [0m[0;32m"/healthcheck"[0m[1;39m,
+      [0m[1;34m"http.status"[0m[1;39m: [0m[0;32m"200"[0m[1;39m
+    [1;39m}[0m[1;39m
+  [1;39m}[0m[1;39m
+[1;39m][0m
+[?2004h]0;user@user-VMware-Virtual-Platform: ~/lesson31[01;32muser@user-VMware-Virtual-Platform[00m:[01;34m~/lesson31[00m$ [7mdocker-compose logs ui --since 1m | grep -A5 -B5 "healthcheck\|1\.3"[27m[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cdocker-compose logs ui --since 1m | grep -A5 -B5 "healthcheck\|1\.3"
+[?2004l[31mERROR[0m: No such service: --since
+[?2004h]0;user@user-VMware-Virtual-Platform: ~/lesson31[01;32muser@user-VMware-Virtual-Platform[00m:[01;34m~/lesson31[00m$ S[K[7mdocker-compose logs ui | grep -A5 -B5 "healthcheck" | tail -20[27m[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cdocker-compose logs ui | grep -A5 -B5 "healthcheck" | tail -20
+[?2004l[?2004h]0;user@user-VMware-Virtual-Platform: ~/lesson31[01;32muser@user-VMware-Virtual-Platform[00m:[01;34m~/lesson31[00m$ exit
+[?2004lexit
+
+Script done on 2026-01-22 18:56:13+03:00 [COMMAND_EXIT_CODE="0"]
